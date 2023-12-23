@@ -9,6 +9,12 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { RiShoppingCartFill } from "react-icons/ri";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
+import {
+	IoLogoFacebook,
+	IoLogoInstagram,
+	IoLogoTwitter,
+	IoLogoYoutube,
+} from "react-icons/io";
 
 function Navbar() {
 	const [admin, setAdmin] = useState(true);
@@ -353,6 +359,37 @@ function Navbar() {
 								<MdEmail className="text-lg text-gray-600" />
 								Send a Mail
 							</NavLink>
+						</div>
+						<hr />
+						{/*Trending*/}
+						<div className="p-4">
+							<div className="flex items-center gap-5 ">
+								<a
+									href="https://www.instagram.com/codebustler"
+									target="_blank"
+								>
+									<IoLogoInstagram className="text-lg text-gray-500 hover:text-pink-600" />
+								</a>
+								<a
+									href="https://www.twitter.com/codebustler"
+									target="_blank"
+								>
+									<IoLogoTwitter className="text-lg text-gray-500 hover:text-blue-400" />
+								</a>
+								<a
+									href="https://www.facebook.com/codebustler"
+									target="_blank"
+								>
+									<IoLogoFacebook className="text-lg text-gray-500 hover:text-blue-500" />
+								</a>
+
+								<a
+									href="https://www.youtube.com/@codebustler"
+									target="_blank"
+								>
+									<IoLogoYoutube className="text-lg text-gray-500 hover:text-red-500" />
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>
