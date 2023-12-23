@@ -93,7 +93,7 @@ function Footer() {
 								WhatsApp
 							</a>
 							<a href="#" className="opacity-50">
-								<IoChatbubbles className="inline mb-[2px] mr-2" />
+								<IoChatbubbles className="inline mb-[2px] mr-2 " />
 								Chat Service
 							</a>
 						</div>
@@ -123,26 +123,26 @@ function Footer() {
 							href="https://www.instagram.com/codebustler"
 							target="_blank"
 						>
-							<IoLogoInstagram className="text-gray-500" />
+							<IoLogoInstagram className="text-gray-500 hover:text-pink-600" />
 						</a>
 						<a
 							href="https://www.twitter.com/codebustler"
 							target="_blank"
 						>
-							<IoLogoTwitter className="text-gray-500" />
+							<IoLogoTwitter className="text-gray-500 hover:text-blue-400" />
 						</a>
 						<a
 							href="https://www.facebook.com/codebustler"
 							target="_blank"
 						>
-							<IoLogoFacebook className="text-gray-500" />
+							<IoLogoFacebook className="text-gray-500 hover:text-blue-500" />
 						</a>
 
 						<a
 							href="https://www.youtube.com/@codebustler"
 							target="_blank"
 						>
-							<IoLogoYoutube className="text-gray-500" />
+							<IoLogoYoutube className="text-gray-500 hover:text-red-500" />
 						</a>
 					</div>
 				</div>

@@ -4,10 +4,11 @@ import { BsSearch } from "react-icons/bs";
 import { LuShoppingCart } from "react-icons/lu";
 import { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { FaPhoneAlt } from "react-icons/fa";
 import { RiShoppingCartFill } from "react-icons/ri";
 import { AiOutlineClose } from "react-icons/ai";
+import { MdEmail } from "react-icons/md";
 
 function Navbar() {
 	const [admin, setAdmin] = useState(true);
@@ -21,22 +22,22 @@ function Navbar() {
 		<header className="flex flex-col">
 			{/*FIRST ROW*/}
 			<nav className="bg-[#131921] flex items-center justify-between px-4 py-3 gap-3  text-white ">
-				<NavLink
+				<Link
 					className="font-semibold text-sm flex gap-2 md:hidden"
 					onClick={() => {
 						handleNavLinkClick();
 					}}
 				>
 					<RxHamburgerMenu className="text-2xl cursor-pointer" />
-				</NavLink>
+				</Link>
 				{/*LOGO*/}
-				<NavLink
+				<Link
 					to="/"
 					className="font-bold text-2xl flex items-center gap-1  "
 				>
 					<RiShoppingCartFill className="text-3xl text-orange-400" />
 					<span className="hidden md:flex">BlinkMart</span>
-				</NavLink>
+				</Link>
 
 				{/*SEARCH BAR*/}
 				<div className="flex items-stretch justify-between bg-white rounded w-[75%] md:w-[60%]  ">
@@ -80,13 +81,13 @@ function Navbar() {
 			{/*SECOND ROW*/}
 			<ul className="bg-[#232F3E] px-5 py-2 flex items-center  gap-x-8 gap-y-4 hidden md:flex flex-wrap text-white  ">
 				{/*ALL PRODUCTS*/}
-				<NavLink
+				<Link
 					className="font-semibold text-sm flex gap-2"
 					onClick={handleNavLinkClick}
 				>
 					<RxHamburgerMenu className="text-xl cursor-pointer " />
 					All
-				</NavLink>
+				</Link>
 				<NavLink
 					to="/products/electronics_and_devices"
 					className="font-semibold text-sm"
@@ -324,6 +325,33 @@ function Navbar() {
 								onClick={handleNavLinkClick}
 							>
 								Jewellery
+							</NavLink>
+						</div>
+						<hr />
+						{/*Trending*/}
+						<div className="p-4">
+							<NavLink
+								to="/customer_service"
+								className="font-semibold text-lg mb-2 flex items-center gap-2"
+								onClick={handleNavLinkClick}
+							>
+								Customer Services
+							</NavLink>
+							<NavLink
+								to="/customer_service"
+								className=" mb-2 flex items-center gap-2"
+								onClick={handleNavLinkClick}
+							>
+								<FaPhoneAlt className="text-lg text-gray-600" />
+								Tollfree Number
+							</NavLink>
+							<NavLink
+								to="/customer_service"
+								className=" mb-2 flex items-center gap-2"
+								onClick={handleNavLinkClick}
+							>
+								<MdEmail className="text-lg text-gray-600" />
+								Send a Mail
 							</NavLink>
 						</div>
 					</div>
