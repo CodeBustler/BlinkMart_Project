@@ -120,7 +120,6 @@ function Navbar() {
 				<NavLink to="/products/books" className="font-semibold text-sm">
 					Books
 				</NavLink>
-
 				<NavLink
 					to="/customer_service"
 					className="font-semibold text-sm flex items-center gap-2"
