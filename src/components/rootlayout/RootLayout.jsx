@@ -6,7 +6,7 @@ function RootLayout() {
 	return (
 		<>
 			<Navbar />
-			<main>
+			<main className=" p-3 md:p-5 min-h-[38vh]">
 				<Outlet />
 			</main>
 			<Footer />

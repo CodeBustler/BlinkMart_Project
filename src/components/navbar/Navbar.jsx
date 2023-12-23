@@ -11,7 +11,7 @@ import { AiOutlineClose } from "react-icons/ai";
 
 function Navbar() {
 	const [admin, setAdmin] = useState(true);
-	const [sidebarToggle, setSidebarToggle] = useState(false);
+	const [sidebarToggle, setSidebarToggle] = useState(true);
 
 	const handleNavLinkClick = () => {
 		setSidebarToggle(!sidebarToggle);
@@ -132,13 +132,13 @@ function Navbar() {
 			{/*BG TRANSPARENT*/}
 			<div
 				className={`w-[100%] h-[100vh] absolute text-lg text-orange-400 z-0 bg-black transition delay-1000 ${
-					sidebarToggle ? "hidden" : "opacity-60 "
+					sidebarToggle ? "hidden" : "opacity-70 "
 				}`}
 			></div>
 
 			{/*SIDEBAR*/}
 			<aside
-				className={`absolute   w-[100%] h-[100vh]   transition flex justify-between ${
+				className={`absolute   w-[100%] h-[100vh]  transition flex justify-between z-10 ${
 					sidebarToggle ? "-translate-x-full  " : "translate-x-0"
 				}`}
 			>
@@ -165,20 +165,33 @@ function Navbar() {
 							<NavLink
 								to="/products/electronics_and_devices"
 								className="font-semibold text-lg mb-2"
+								onClick={handleNavLinkClick}
 							>
 								Electronics & Devices
 							</NavLink>
 							<ul className="flex flex-col leading-8">
-								<NavLink to="/products/mobiles">
+								<NavLink
+									to="/products/mobiles"
+									onClick={handleNavLinkClick}
+								>
 									Mobiles
 								</NavLink>
-								<NavLink to="/products/laptops">
+								<NavLink
+									to="/products/laptops"
+									onClick={handleNavLinkClick}
+								>
 									Laptops
 								</NavLink>
-								<NavLink to="/products/tablets">
+								<NavLink
+									to="/products/tablets"
+									onClick={handleNavLinkClick}
+								>
 									Tablets
 								</NavLink>
-								<NavLink to="/products/wearable_devices">
+								<NavLink
+									to="/products/wearable_devices"
+									onClick={handleNavLinkClick}
+								>
 									Wearable Devices
 								</NavLink>
 							</ul>
@@ -187,20 +200,30 @@ function Navbar() {
 						{/*Trending*/}
 						<div className="p-4">
 							<NavLink
-								to="/products/electronics_and_devices"
+								to="/products/mens_fashion"
 								className="font-semibold text-lg mb-2"
+								onClick={handleNavLinkClick}
 							>
 								Men's Fashion
 							</NavLink>
 							<ul className="flex flex-col leading-8">
-								<NavLink to="/products/mens_shirts">
+								<NavLink
+									to="/products/mens_shirts"
+									onClick={handleNavLinkClick}
+								>
 									Shirts & T-Shirt
 								</NavLink>
 
-								<NavLink to="/products/mens_shoes">
+								<NavLink
+									to="/products/mens_shoes"
+									onClick={handleNavLinkClick}
+								>
 									Shoes & Sneakers
 								</NavLink>
-								<NavLink to="/products/mens_shoes">
+								<NavLink
+									to="/products/mens_shoes"
+									onClick={handleNavLinkClick}
+								>
 									Leather Jackets
 								</NavLink>
 							</ul>
@@ -209,20 +232,55 @@ function Navbar() {
 						{/*Trending*/}
 						<div className="p-4">
 							<NavLink
-								to="/products/electronics_and_devices"
+								to="/products/womens_fashion"
 								className="font-semibold text-lg mb-2"
+								onClick={handleNavLinkClick}
 							>
 								Women's Fashion
 							</NavLink>
 							<ul className="flex flex-col leading-8">
-								<NavLink to="/products/womens_dress">
+								<NavLink
+									to="/products/womens_dress"
+									onClick={handleNavLinkClick}
+								>
 									Dresses
 								</NavLink>
-								<NavLink to="/products/womens_top">
+								<NavLink
+									to="/products/womens_top"
+									onClick={handleNavLinkClick}
+								>
 									Tops western
 								</NavLink>
-								<NavLink to="/products/womens_footwear">
+								<NavLink
+									to="/products/womens_footwear"
+									onClick={handleNavLinkClick}
+								>
 									Footwear
+								</NavLink>
+							</ul>
+						</div>
+						<hr />
+						{/*Trending*/}
+						<div className="p-4">
+							<NavLink
+								to="/products/kids_fashion"
+								className="font-semibold text-lg mb-2"
+								onClick={handleNavLinkClick}
+							>
+								Kid's Fashion
+							</NavLink>
+							<ul className="flex flex-col leading-8">
+								<NavLink
+									to="/products/kids_cloth"
+									onClick={handleNavLinkClick}
+								>
+									Kids Cloth
+								</NavLink>
+								<NavLink
+									to="/products/kids_footwear"
+									onClick={handleNavLinkClick}
+								>
+									Kids Footwear
 								</NavLink>
 							</ul>
 						</div>
@@ -232,17 +290,27 @@ function Navbar() {
 							<NavLink
 								to="/products/books"
 								className="font-semibold text-lg mb-2"
+								onClick={handleNavLinkClick}
 							>
 								Books
 							</NavLink>
 							<ul className="flex flex-col leading-8">
-								<NavLink to="/products/books_comics">
+								<NavLink
+									to="/products/books_comics"
+									onClick={handleNavLinkClick}
+								>
 									Comics
 								</NavLink>
-								<NavLink to="/products/books_programming">
+								<NavLink
+									to="/products/books_programming"
+									onClick={handleNavLinkClick}
+								>
 									Porgramming
 								</NavLink>
-								<NavLink to="/products/books_devotional">
+								<NavLink
+									to="/products/books_devotional"
+									onClick={handleNavLinkClick}
+								>
 									Devotional
 								</NavLink>
 							</ul>
@@ -253,6 +321,7 @@ function Navbar() {
 							<NavLink
 								to="/products/jewellery"
 								className="font-semibold text-lg mb-2"
+								onClick={handleNavLinkClick}
 							>
 								Jewellery
 							</NavLink>
