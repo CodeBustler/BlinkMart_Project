@@ -12,6 +12,8 @@ import Homepage from "./pages/homepage/Homepage";
 import NoPage from "./pages/nopage/NoPage";
 import Dashboard from "./pages/dashboard/Dashboard";
 import CustomerService from "./pages/customerService/CustomerService";
+import SignUp from "./pages/signIn_signUp/SignUp";
+import Login from "./pages/signIn_signUp/Login";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +27,8 @@ const router = createBrowserRouter(
         <Route path="/productDetail/:id" element={<ProductDetail />} />
       </Route>
       <Route path="/*" element={<NoPage />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/login" element={<Login />} />
     </Route>,
   ),
 );

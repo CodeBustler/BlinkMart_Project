@@ -103,7 +103,7 @@ function Footer() {
 
 			{/*FOOTER COPYRIGHT*/}
 			<div className="bg-[#131A22] text-white">
-				<div className="container m-auto  flex flex-col md:flex-row gap-4 items-center justify-between py-5 lg:py-4">
+				<div className="container m-auto  flex flex-col md:flex-row gap-4 items-center justify-between py-5 lg:py-4 md:p-4">
 					{/*LEFT */}
 					<div className="flex items-center gap-3 flex flex-col md:flex-row ">
 						<h2 className="font-bold flex items-center gap-2">

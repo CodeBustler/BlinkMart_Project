@@ -15,6 +15,7 @@ import {
 	IoLogoTwitter,
 	IoLogoYoutube,
 } from "react-icons/io";
+import { RiLogoutBoxLine } from "react-icons/ri";
 
 function Navbar() {
 	const [admin, setAdmin] = useState(true);
@@ -390,6 +391,16 @@ function Navbar() {
 									<IoLogoYoutube className="text-lg text-gray-500 hover:text-red-500" />
 								</a>
 							</div>
+						</div>
+						<hr />
+						{/*Trending*/}
+						<div className="p-4">
+							<Link
+								to="/login"
+								className="flex items-center bg-yellow-400 rounded w-[50%] gap-2 px-3 py-2"
+							>
+								<RiLogoutBoxLine className="" /> Logout
+							</Link>
 						</div>
 					</div>
 				</div>
