@@ -9,14 +9,14 @@ import { IoLogoYoutube } from "react-icons/io5";
 function CustomerService() {
 	return (
 		<section>
-			<div className="container mx-auto my-3">
-				<h2 className="text-2xl md:text-3xl font-bold">
+			<div className="container mx-auto my-3 ">
+				<h2 className="text-2xl font-bold">
 					Hello, What can we help you with?
 				</h2>
-				<h3 className="font-semibold text-xl md:text-2xl my-5">
+				<h3 className="font-semibold text-xl my-5">
 					Some thing you can do here
 				</h3>
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10 mx-auto md:w-[90%] ">
 					<div className="border border-2 p-3 rounded flex gap-5 cursor-pointer transition hover:outline-2  hover:outline hover:outline-gray-300">
 						{/*Image*/}
 						<img
@@ -25,7 +25,7 @@ function CustomerService() {
 							className="object-contain w-[25%] md:w-[20%]"
 						/>
 						{/*Content*/}
-						<div>
+						<div className="flex flex-col justify-center">
 							<h4 className="font-semibold text-lg">
 								Your Orders
 							</h4>
@@ -41,7 +41,7 @@ function CustomerService() {
 							className="object-contain w-[25%] md:w-[20%]"
 						/>
 						{/*Content*/}
-						<div>
+						<div className="flex flex-col justify-center">
 							<h4 className="font-semibold text-lg">
 								Returns and Refunds
 							</h4>
@@ -57,7 +57,7 @@ function CustomerService() {
 							className="object-contain w-[25%] md:w-[20%]"
 						/>
 						{/*Content*/}
-						<div>
+						<div className="flex flex-col justify-center">
 							<h4 className="font-semibold text-lg">
 								Manage Adresses
 							</h4>
@@ -73,7 +73,7 @@ function CustomerService() {
 							className="object-contain w-[25%] md:w-[20%]"
 						/>
 						{/*Content*/}
-						<div>
+						<div className="flex flex-col justify-center">
 							<h4 className="font-semibold text-lg">
 								Payment Settings
 							</h4>
@@ -89,7 +89,7 @@ function CustomerService() {
 							className="object-contain w-[25%] md:w-[20%]"
 						/>
 						{/*Content*/}
-						<div>
+						<div className="flex flex-col justify-center">
 							<h4 className="font-semibold text-lg">
 								Account Settings
 							</h4>
@@ -105,7 +105,7 @@ function CustomerService() {
 							className="object-contain w-[25%] md:w-[20%]"
 						/>
 						{/*Content*/}
-						<div>
+						<div className="flex flex-col justify-center">
 							<h4 className="font-semibold text-lg">
 								Digital Services & Devices
 							</h4>
@@ -115,13 +115,12 @@ function CustomerService() {
 					</div>
 				</div>
 			</div>
-			<div className="container mx-auto my-10">
-				<h2 className="text-2xl md:text-3xl font-bold">Contact Us</h2>
-				<h3 className="font-semibold text-xl md:text-2xl my-5">
-					And Social Media
-				</h3>
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
-					<div className="border border-2 p-5 rounded flex cursor-pointer transition hover:outline-2  hover:outline hover:outline-gray-300 gap-4 flex items-center">
+			{/*CONTACT US*/}
+			<div className="container mx-auto my-12">
+				<h2 className="text-2xl font-bold">Contact Us</h2>
+
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10 mx-auto md:w-[90%]">
+					<div className="border border-2 p-5 rounded flex cursor-pointer transition hover:outline-2  hover:outline hover:outline-gray-300 gap-4 flex items-center  ">
 						{/*Image*/}
 						<FaPhoneVolume className="text-3xl text-blue-500" />
 
