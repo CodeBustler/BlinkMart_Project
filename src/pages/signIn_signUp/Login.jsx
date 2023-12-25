@@ -1,8 +1,44 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { RiShoppingCartFill } from "react-icons/ri";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 
 function Login() {
+	// Input Values
+	const [values, setValues] = useState({
+		email: "",
+		password: "",
+	});
+
+	const navigate = useNavigate();
+
+	// Form Error Message
+	const [errorMsg, setErrorMsg] = useState("");
+
+	// Handle Submit
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		// Email validation
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!values.email || !values.password) {
+			setErrorMsg("Please fill all fields");
+		} else if (!emailRegex.test(values.email)) {
+			setErrorMsg("Please enter a valid email address");
+		} else {
+			setErrorMsg("");
+			signInWithEmailAndPassword(auth, values.email, values.password)
+				.then((res) => {
+					console.log(res.user);
+					navigate("/");
+				})
+				.catch((error) =>
+					console.log(error, setErrorMsg(error.message.slice(9))),
+				);
+		}
+	};
+
 	return (
 		<section className="h-[100vh]">
 			{/*CONTAINER*/}
@@ -23,15 +59,34 @@ function Login() {
 						type="email"
 						placeholder="Email Id"
 						className="border py-2 px-3 mt-2 rounded-lg  outline-blue-300"
+						onChange={(event) =>
+							setValues((prev) => ({
+								...prev,
+								email: event.target.value,
+							}))
+						}
 					/>
 					<input
 						type="password"
 						placeholder="Password"
 						className="border py-2 px-3 mt-2 rounded-lg outline-blue-300"
+						onChange={(event) =>
+							setValues((prev) => ({
+								...prev,
+								password: event.target.value,
+							}))
+						}
 					/>
-					<button className="bg-yellow-400 p-2 mt-3 rounded-lg outline-blue-300 hover:bg-yellow-500 active:bg-yellow-400">
+					<button
+						className="bg-yellow-400 p-2 mt-3 rounded-lg outline-blue-300 hover:bg-yellow-500 active:bg-yellow-400"
+						onClick={(e) => handleSubmit(e)}
+					>
 						Login
 					</button>
+					{/*Error Message*/}
+					<span className="text-red-500 font-semibold mt-2 ">
+						{errorMsg}
+					</span>
 					<p className="mt-5">
 						New to BlinkMart?
 						<Link

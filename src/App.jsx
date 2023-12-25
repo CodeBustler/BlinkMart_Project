@@ -14,6 +14,8 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import CustomerService from "./pages/customerService/CustomerService";
 import SignUp from "./pages/signIn_signUp/SignUp";
 import Login from "./pages/signIn_signUp/Login";
+import { useEffect } from "react";
+import { auth } from "./firebase";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +36,11 @@ const router = createBrowserRouter(
 );
 
 function App() {
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      console.log(user);
+    });
+  }, []);
   return <RouterProvider router={router} />;
 }
 
