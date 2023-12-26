@@ -36,7 +36,6 @@ function SignUp() {
 						displayName: values.name,
 					});
 					console.log(res);
-
 					navigate("/login");
 				})
 				.catch((error) =>

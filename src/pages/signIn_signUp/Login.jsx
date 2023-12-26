@@ -1,26 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RiShoppingCartFill } from "react-icons/ri";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
+// import { MyContext } from "../../App";
 
 function Login() {
+	const navigate = useNavigate();
+	const [errorMsg, setErrorMsg] = useState("");
+	// const { userName, setUserName } = useContext(MyContext);
+
 	// Input Values
 	const [values, setValues] = useState({
 		email: "",
 		password: "",
 	});
 
-	const navigate = useNavigate();
-
-	// Form Error Message
-	const [errorMsg, setErrorMsg] = useState("");
-
 	// Handle Submit
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		// Email validation
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		if (!values.email || !values.password) {
 			setErrorMsg("Please fill all fields");
@@ -30,7 +29,6 @@ function Login() {
 			setErrorMsg("");
 			signInWithEmailAndPassword(auth, values.email, values.password)
 				.then((res) => {
-					console.log(res.user);
 					navigate("/");
 				})
 				.catch((error) =>

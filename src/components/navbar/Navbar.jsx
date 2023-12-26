@@ -1,28 +1,47 @@
-import flag from "../../assets/flag.png";
-import profileDefaultAvatar from "../../assets/profile-avatar.png";
-import { BsSearch } from "react-icons/bs";
-import { LuShoppingCart } from "react-icons/lu";
-import { useState } from "react";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { NavLink, Link } from "react-router-dom";
-import { FaPhoneAlt } from "react-icons/fa";
-import { RiShoppingCartFill } from "react-icons/ri";
-import { AiOutlineClose } from "react-icons/ai";
-import { MdEmail } from "react-icons/md";
 import {
 	IoLogoFacebook,
 	IoLogoInstagram,
 	IoLogoTwitter,
 	IoLogoYoutube,
 } from "react-icons/io";
+import flag from "../../assets/flag.png";
+import profileDefaultAvatar from "../../assets/profile-avatar.png";
+import { BsSearch } from "react-icons/bs";
+import { LuShoppingCart } from "react-icons/lu";
+import { useContext, useState } from "react";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import { FaPhoneAlt } from "react-icons/fa";
+import { RiShoppingCartFill } from "react-icons/ri";
+import { AiOutlineClose } from "react-icons/ai";
+import { MdEmail } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
+import { MyContext } from "../../App";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
 
 function Navbar() {
 	const [admin, setAdmin] = useState(true);
 	const [sidebarToggle, setSidebarToggle] = useState(true);
+	const { userName, setUserName } = useContext(MyContext);
 
 	const handleNavLinkClick = () => {
 		setSidebarToggle(!sidebarToggle);
+	};
+
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+		signOut(auth)
+			.then(() => {
+				// Sign-out successful.
+				setUserName("");
+				navigate("/login");
+				console.log("Signed out successfully");
+			})
+			.catch((error) => {
+				// An error happened.
+			});
 	};
 
 	return (
@@ -159,7 +178,9 @@ function Navbar() {
 								alt="avatar"
 								className="w-[36px]"
 							/>
-							<span>Hello, Username</span>
+							<span className="capitalize">
+								Hello, {userName ? userName : "UserName"}
+							</span>
 						</div>
 						<AiOutlineClose
 							className="text-3xl  right-4 top-4 cursor-pointer transition  text-red-500 "
@@ -397,9 +418,11 @@ function Navbar() {
 						<div className="p-4">
 							<Link
 								to="/login"
-								className="flex items-center bg-yellow-400 rounded w-[50%] gap-2 px-3 py-2"
+								className="flex items-center justify-center gap-2 bg-yellow-500 rounded py-2 "
+								onClick={handleLogout}
 							>
-								<RiLogoutBoxLine className="" /> Logout
+								<RiLogoutBoxLine className="text-lg" />
+								<span>Logout</span>
 							</Link>
 						</div>
 					</div>
