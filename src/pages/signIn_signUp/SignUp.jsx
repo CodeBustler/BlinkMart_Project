@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { RiShoppingCartFill } from "react-icons/ri";
 import { useState } from "react";
 import { auth } from "../../firebase";
+import { signOut } from "firebase/auth";
 
 function SignUp() {
 	// Input Values
@@ -18,10 +19,9 @@ function SignUp() {
 	const [errorMsg, setErrorMsg] = useState("");
 
 	// Handle Submit
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		// Email validation
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		if (!values.name || !values.email || !values.password) {
 			setErrorMsg("Please fill all fields");
@@ -29,18 +29,23 @@ function SignUp() {
 			setErrorMsg("Please enter a valid email address");
 		} else {
 			setErrorMsg("");
-			createUserWithEmailAndPassword(auth, values.email, values.password)
-				.then(async (res) => {
-					const user = res.user;
-					await updateProfile(user, {
-						displayName: values.name,
-					});
-					console.log(res);
-					navigate("/login");
-				})
-				.catch((error) =>
-					console.log(error, setErrorMsg(error.message.slice(9))),
+			try {
+				const res = await createUserWithEmailAndPassword(
+					auth,
+					values.email,
+					values.password,
 				);
+				const user = res.user;
+				await updateProfile(user, {
+					displayName: values.name,
+				});
+				console.log(res);
+				navigate("/login");
+				navigate(0);
+			} catch (error) {
+				console.error(error);
+				setErrorMsg(error.message.slice(9));
+			}
 		}
 	};
 

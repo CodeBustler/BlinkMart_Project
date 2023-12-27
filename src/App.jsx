@@ -22,13 +22,27 @@ const MyContext = createContext();
 
 function App() {
   const [userName, setUserName] = useState("");
+  const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setUserName(user.displayName);
-      console.log(userName);
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log(user);
+        setUserName(user.displayName);
+        user.email === "admin@blinkmart.com" ? setAdmin(true) : setAdmin(false);
+        console.log("UserName :" + user.displayName);
+      } else {
+        setUserName(null);
+        console.log("User not logged in");
+      }
     });
+
+    return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    console.log(admin);
+  }, [admin]);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -48,7 +62,7 @@ function App() {
     ),
   );
   return (
-    <MyContext.Provider value={{ userName, setUserName }}>
+    <MyContext.Provider value={{ userName, setUserName, admin }}>
       <RouterProvider router={router} />
     </MyContext.Provider>
   );

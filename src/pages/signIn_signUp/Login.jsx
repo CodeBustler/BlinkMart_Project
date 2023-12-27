@@ -1,14 +1,28 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RiShoppingCartFill } from "react-icons/ri";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
-// import { MyContext } from "../../App";
+import { MyContext } from "../../App";
 
 function Login() {
 	const navigate = useNavigate();
 	const [errorMsg, setErrorMsg] = useState("");
-	// const { userName, setUserName } = useContext(MyContext);
+	const { userName, setUserName } = useContext(MyContext);
+
+	useEffect(() => {
+		const unsubscribe = auth.onAuthStateChanged((user) => {
+			if (user) {
+				setUserName(user.displayName);
+				console.log("UserName :" + user.displayName);
+			} else {
+				setUserName(null);
+				console.log("User not logged in");
+			}
+		});
+
+		return () => unsubscribe();
+	}, []);
 
 	// Input Values
 	const [values, setValues] = useState({
@@ -57,6 +71,7 @@ function Login() {
 						type="email"
 						placeholder="Email Id"
 						className="border py-2 px-3 mt-2 rounded-lg  outline-blue-300"
+						value={values.email}
 						onChange={(event) =>
 							setValues((prev) => ({
 								...prev,
@@ -68,6 +83,7 @@ function Login() {
 						type="password"
 						placeholder="Password"
 						className="border py-2 px-3 mt-2 rounded-lg outline-blue-300"
+						value={values.password}
 						onChange={(event) =>
 							setValues((prev) => ({
 								...prev,

@@ -21,10 +21,9 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 
 function Navbar() {
-	const [admin, setAdmin] = useState(true);
 	const [sidebarToggle, setSidebarToggle] = useState(true);
-	const { userName, setUserName } = useContext(MyContext);
-
+	const { userName, setUserName, admin } = useContext(MyContext);
+	console.log(admin);
 	const handleNavLinkClick = () => {
 		setSidebarToggle(!sidebarToggle);
 	};
@@ -34,13 +33,12 @@ function Navbar() {
 	const handleLogout = () => {
 		signOut(auth)
 			.then(() => {
-				// Sign-out successful.
 				setUserName("");
 				navigate("/login");
 				console.log("Signed out successfully");
 			})
 			.catch((error) => {
-				// An error happened.
+				console.log(error);
 			});
 	};
 
@@ -86,14 +84,16 @@ function Navbar() {
 						/>
 						<span className="font-semibold ">EN</span>
 					</li>
-					<NavLink
-						to="/dashboard"
-						className={`font-semibold cursor-pointer hidden md:block  ${
-							admin ? "block" : "hidden"
-						}`}
-					>
-						Dashboard
-					</NavLink>
+					{admin && (
+						<NavLink
+							to="/dashboard"
+							className={`font-semibold cursor-pointer hidden md:block  ${
+								admin ? "block" : "hidden"
+							}`}
+						>
+							Dashboard
+						</NavLink>
+					)}
 
 					{/*Cart Icon*/}
 					<NavLink className="flex items-center gap-1" to="/cart">
@@ -171,24 +171,51 @@ function Navbar() {
 			>
 				{/* SIDEBAR CONTENT*/}
 				<div className={`bg-white shadow-2xl `}>
-					<h1 className="bg-[#232F3E] text-white py-3 px-4 flex items-center gap-5 font-semibold text-lg sticky top-0 ">
-						<div className="flex items-center gap-3">
-							<img
-								src={profileDefaultAvatar}
-								alt="avatar"
-								className="w-[36px]"
-							/>
-							<span className="capitalize">
-								Hello, {userName ? userName : "UserName"}
-							</span>
+					<div className="bg-[#232F3E] text-white py-3 px-3 flex items-center  font-semibold text-lg sticky top-0 ">
+						<div className="flex flex-col gap-4 w-full">
+							<div className="flex items-center justify-between gap-4 ">
+								<div className="flex  items-center gap-2">
+									<img
+										src={profileDefaultAvatar}
+										alt="avatar"
+										className="w-[36px]"
+									/>
+									<span className="capitalize">
+										Hello, &nbsp;
+										{userName ? (
+											userName
+										) : (
+											<Link
+												to="/login"
+												className="underline"
+											>
+												Login
+											</Link>
+										)}
+									</span>
+								</div>
+								<AiOutlineClose
+									className="text-2xl  right-4 top-4 cursor-pointer transition  text-red-500 "
+									onClick={handleNavLinkClick}
+								/>
+							</div>
 						</div>
-						<AiOutlineClose
-							className="text-3xl  right-4 top-4 cursor-pointer transition  text-red-500 "
-							onClick={handleNavLinkClick}
-						/>
-					</h1>
+					</div>
 					{/*SIDEBAR SECTION*/}
 					<div className="pl-3 overflow-y-scroll h-[90vh] ">
+						<div className=" mx-3">
+							{admin ? (
+								<Link
+									to="/dashboard"
+									onClick={handleNavLinkClick}
+									className=" mt-2 flex items-center justify-center bg-yellow-500 rounded py-2"
+								>
+									Dashboard
+								</Link>
+							) : (
+								""
+							)}
+						</div>
 						{/*Trending*/}
 						<div className="p-4">
 							<NavLink
@@ -416,14 +443,18 @@ function Navbar() {
 						<hr />
 						{/*Trending*/}
 						<div className="p-4">
-							<Link
-								to="/login"
+							<NavLink
+								to={userName ? "/login" : "/signup"}
 								className="flex items-center justify-center gap-2 bg-yellow-500 rounded py-2 "
 								onClick={handleLogout}
 							>
-								<RiLogoutBoxLine className="text-lg" />
-								<span>Logout</span>
-							</Link>
+								{userName ? (
+									<RiLogoutBoxLine className="text-lg" />
+								) : (
+									""
+								)}
+								<span>{userName ? "Logout" : "Login"}</span>
+							</NavLink>
 						</div>
 					</div>
 				</div>
