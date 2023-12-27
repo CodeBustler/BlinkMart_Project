@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { MyContext } from "../../App";
 
 function Cart() {
+	const { userName, admin } = useContext(MyContext);
 	return <div>Cart</div>;
 }
 
