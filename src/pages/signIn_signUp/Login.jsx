@@ -4,11 +4,13 @@ import { RiShoppingCartFill } from "react-icons/ri";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import { MyContext } from "../../App";
+import { ToastContainer, toast } from "react-toastify";
 
 function Login() {
 	const navigate = useNavigate();
 	const [errorMsg, setErrorMsg] = useState("");
 	const { userName, setUserName } = useContext(MyContext);
+	const toastSuccess = () => toast.success("Login Success !");
 
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -43,7 +45,11 @@ function Login() {
 			setErrorMsg("");
 			signInWithEmailAndPassword(auth, values.email, values.password)
 				.then((res) => {
-					navigate("/");
+					toastSuccess();
+					setTimeout(() => {
+						navigate("/");
+						navigate(0);
+					}, 1000);
 				})
 				.catch((error) =>
 					console.log(error, setErrorMsg(error.message.slice(9))),
@@ -53,6 +59,18 @@ function Login() {
 
 	return (
 		<section className="h-[100vh]">
+			<ToastContainer
+				position="bottom-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="colored"
+			/>
 			{/*CONTAINER*/}
 			<div className="flex flex-col items-center pt-10">
 				{/*LOGO*/}

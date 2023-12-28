@@ -4,8 +4,11 @@ import { RiShoppingCartFill } from "react-icons/ri";
 import { useState } from "react";
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
+import { ToastContainer, toast } from "react-toastify";
 
 function SignUp() {
+	const toastSuccess = () => toast.success("SignUp Success !");
+
 	// Input Values
 	const [values, setValues] = useState({
 		name: "",
@@ -39,9 +42,12 @@ function SignUp() {
 				await updateProfile(user, {
 					displayName: values.name,
 				});
+				toastSuccess();
 				console.log(res);
-				navigate("/login");
-				navigate(0);
+				setTimeout(() => {
+					navigate("/login");
+					navigate(0);
+				}, 1000);
 			} catch (error) {
 				console.error(error);
 				setErrorMsg(error.message.slice(9));
@@ -51,6 +57,18 @@ function SignUp() {
 
 	return (
 		<section className="h-[100vh]">
+			<ToastContainer
+				position="bottom-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="colored"
+			/>
 			{/*CONTAINER*/}
 			<div className="flex flex-col items-center pt-10">
 				{/*LOGO*/}
@@ -102,7 +120,9 @@ function SignUp() {
 					/>
 					<button
 						className="bg-yellow-400 p-2 mt-3 rounded-lg outline-blue-300 hover:bg-yellow-500 active:bg-yellow-400"
-						onClick={(e) => handleSubmit(e)}
+						onClick={(e) => {
+							handleSubmit(e);
+						}}
 					>
 						Submit
 					</button>

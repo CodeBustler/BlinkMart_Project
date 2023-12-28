@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Dashboard() {
 	const { admin } = useContext(MyContext);
 	const navigate = useNavigate();
+
 	return (
 		<>{admin ? <div>Dashboard</div> : (navigate("/login"), navigate(0))}</>
 	);

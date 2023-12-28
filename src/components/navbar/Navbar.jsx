@@ -19,10 +19,13 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 import { MyContext } from "../../App";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
+import { ToastContainer, toast } from "react-toastify";
 
 function Navbar() {
 	const [sidebarToggle, setSidebarToggle] = useState(true);
 	const { userName, setUserName, admin } = useContext(MyContext);
+	const toastWarn = () => toast.error("Logout !");
+
 	console.log(admin);
 	const handleNavLinkClick = () => {
 		setSidebarToggle(!sidebarToggle);
@@ -34,7 +37,10 @@ function Navbar() {
 		signOut(auth)
 			.then(() => {
 				setUserName("");
-				navigate("/login");
+				userName && toastWarn();
+				setTimeout(() => {
+					navigate("/login");
+				}, 2000);
 				console.log("Signed out successfully");
 			})
 			.catch((error) => {
@@ -44,6 +50,16 @@ function Navbar() {
 
 	return (
 		<header className="flex flex-col sticky top-0 z-10">
+			<ToastContainer
+				position="bottom-center"
+				autoClose={1000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				draggable
+				theme="colored"
+			/>
 			{/*FIRST ROW*/}
 			<nav className="bg-[#131921] flex items-center justify-between px-4 py-3 gap-3  text-white ">
 				<Link
@@ -87,7 +103,7 @@ function Navbar() {
 					{admin && (
 						<NavLink
 							to="/dashboard"
-							className={`font-semibold cursor-pointer hidden md:block  ${
+							className={`font-semibold cursor-pointer hidden md:block   ${
 								admin ? "block" : "hidden"
 							}`}
 						>
@@ -107,13 +123,13 @@ function Navbar() {
 			{/*SECOND ROW*/}
 			<ul className="bg-[#232F3E] px-5 py-2 flex items-center  gap-x-8 gap-y-4 hidden md:flex flex-wrap text-white  ">
 				{/*ALL PRODUCTS*/}
-				<Link
-					className="font-semibold text-sm flex gap-2"
+				<div
+					className="font-semibold text-sm flex gap-2 cursor-pointer"
 					onClick={handleNavLinkClick}
 				>
 					<RxHamburgerMenu className="text-xl cursor-pointer " />
 					All
-				</Link>
+				</div>
 				<NavLink
 					to="/products/electronics_and_devices"
 					className="font-semibold text-sm"
@@ -443,18 +459,16 @@ function Navbar() {
 						<hr />
 						{/*Trending*/}
 						<div className="p-4">
-							<NavLink
-								to={userName ? "/login" : "/signup"}
+							<Link
+								to="/login"
 								className="flex items-center justify-center gap-2 bg-yellow-500 rounded py-2 "
 								onClick={handleLogout}
 							>
-								{userName ? (
+								{userName && (
 									<RiLogoutBoxLine className="text-lg" />
-								) : (
-									""
 								)}
 								<span>{userName ? "Logout" : "Login"}</span>
-							</NavLink>
+							</Link>
 						</div>
 					</div>
 				</div>

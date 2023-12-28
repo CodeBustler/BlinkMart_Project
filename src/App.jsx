@@ -3,6 +3,7 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
+  useNavigate,
 } from "react-router-dom";
 import RootLayout from "./components/rootlayout/RootLayout";
 import Cart from "./pages/cart/Cart";
@@ -48,9 +49,12 @@ function App() {
     createRoutesFromElements(
       <Route>
         <Route path="/" element={<RootLayout />}>
-          <Route index element={<Homepage />} />
+          <Route
+            index
+            element={<Homepage admin={admin} adminName={userName} />}
+          />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard admin={admin} />} />
           <Route path="/products/:category" element={<Products />} />
           <Route path="/customer_service" element={<CustomerService />} />
           <Route path="/productDetail/:id" element={<ProductDetail />} />
