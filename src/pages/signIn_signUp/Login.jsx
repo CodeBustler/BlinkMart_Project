@@ -1,30 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RiShoppingCartFill } from "react-icons/ri";
+import { IoMdSad } from "react-icons/io";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
-import { MyContext } from "../../App";
 import { ToastContainer, toast } from "react-toastify";
 
 function Login() {
 	const navigate = useNavigate();
 	const [errorMsg, setErrorMsg] = useState("");
-	const { userName, setUserName } = useContext(MyContext);
 	const toastSuccess = () => toast.success("Login Success !");
-
-	useEffect(() => {
-		const unsubscribe = auth.onAuthStateChanged((user) => {
-			if (user) {
-				setUserName(user.displayName);
-				console.log("UserName :" + user.displayName);
-			} else {
-				setUserName(null);
-				console.log("User not logged in");
-			}
-		});
-
-		return () => unsubscribe();
-	}, []);
 
 	// Input Values
 	const [values, setValues] = useState({
@@ -79,10 +64,7 @@ function Login() {
 					<span className="text-3xl">BlinkMart</span>
 				</Link>
 				{/*FORM*/}
-				<form
-					action=""
-					className="flex flex-col border py-8 px-8  w-[90%] md:w-[40%] lg:w-[32%] mt-10 rounded-lg shadow-2xl gap-2 "
-				>
+				<form className="flex flex-col border py-8 px-8  w-[90%] md:w-[40%] lg:w-[32%] mt-10 rounded-lg shadow-2xl gap-2 ">
 					<h1 className="text-2xl font-semibold">Login</h1>
 
 					<input
@@ -116,7 +98,10 @@ function Login() {
 						Login
 					</button>
 					{/*Error Message*/}
-					<span className="text-red-500 font-semibold mt-2 ">
+					<span className="text-red-500 font-semibold mt-2 flex items-center gap-2">
+						{errorMsg.length > 0 && (
+							<IoMdSad className="text-2xl animate-bounce" />
+						)}
 						{errorMsg}
 					</span>
 					<p className="mt-5">

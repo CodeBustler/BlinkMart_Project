@@ -26,25 +26,27 @@ function App() {
   const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const updateUserName = auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log(user);
+        // Update UserName
         setUserName(user.displayName);
+
+        // Validate Admin Accoun
         user.email === "admin@blinkmart.com" ? setAdmin(true) : setAdmin(false);
-        console.log("UserName :" + user.displayName);
       } else {
         setUserName(null);
         console.log("User not logged in");
       }
     });
 
-    return () => unsubscribe();
+    return () => updateUserName();
   }, []);
 
   useEffect(() => {
     console.log(admin);
   }, [admin]);
 
+  // ROUTES
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
