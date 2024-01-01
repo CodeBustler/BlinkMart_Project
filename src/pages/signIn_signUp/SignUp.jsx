@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 function SignUp() {
 	const toastSuccess = () => toast.success("SignUp Success !");
+	const navigate = useNavigate();
 
 	// Input Values
 	const [values, setValues] = useState({
@@ -15,8 +16,6 @@ function SignUp() {
 		email: "",
 		password: "",
 	});
-
-	const navigate = useNavigate();
 
 	// Form Error Message
 	const [errorMsg, setErrorMsg] = useState("");

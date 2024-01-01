@@ -264,7 +264,7 @@ function Navbar() {
 									to="/products/wearable_devices"
 									onClick={handleNavLinkClick}
 								>
-									Wearable Devices
+									Smart Watches
 								</NavLink>
 							</ul>
 						</div>

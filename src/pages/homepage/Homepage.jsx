@@ -2,45 +2,49 @@ import ReactLoading from "react-loading";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Homepage({ admin }) {
+function Homepage({ admin, localData }) {
 	const [data, setData] = useState([]);
-	const [loading, setLoading] = useState(true);
+	// const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await fetch(
-					"https://fakestoreapi.com/products",
-				);
-				if (!response.ok) {
-					throw new Error("Failed to fetch data");
-				}
+		// const fetchData = async () => {
+		// 	try {
+		// 		const response = await fetch(
+		// 			"https://fakestoreapi.com/products",
+		// 		);
+		// 		if (!response.ok) {
+		// 			throw new Error("Failed to fetch data");
+		// 		}
 
-				const result = await response.json();
-				setData(result);
-				setLoading(false);
-			} catch (error) {
-				console.error(error);
-				setLoading(false);
-			}
+		// 		const result = await response.json();
+		// 		setData(result);
+		// 		setLoading(false);
+		// 	} catch (error) {
+		// 		console.error(error);
+		// 		setLoading(false);
+		// 	}
+		// };
+
+		const fetchData = () => {
+			setData(localData);
 		};
 
 		fetchData();
 	}, []);
 
-	if (loading) {
-		return (
-			<div className="grid place-items-center mt-10">
-				<ReactLoading
-					type={"spin"}
-					color={"orange"}
-					height={50}
-					width={50}
-				/>
-			</div>
-		);
-	}
+	// if (loading) {
+	// 	return (
+	// 		<div className="grid place-items-center mt-10">
+	// 			<ReactLoading
+	// 				type={"spin"}
+	// 				color={"orange"}
+	// 				height={50}
+	// 				width={50}
+	// 			/>
+	// 		</div>
+	// 	);
+	// }
 
 	return (
 		<>
@@ -54,7 +58,7 @@ function Homepage({ admin }) {
 							{/* Product Image */}
 							<div className="object-center object-cover h-[200px]">
 								<img
-									src={item.image}
+									src={item.images.img1}
 									alt="product-image"
 									className="object-contain w-[100%] h-[100%]"
 								/>

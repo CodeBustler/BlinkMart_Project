@@ -18,6 +18,7 @@ import Login from "./pages/signIn_signUp/Login";
 import { useEffect, useState } from "react";
 import { auth } from "./firebase";
 import { createContext } from "react";
+import { localData } from "./data";
 
 const MyContext = createContext();
 
@@ -53,7 +54,13 @@ function App() {
         <Route path="/" element={<RootLayout />}>
           <Route
             index
-            element={<Homepage admin={admin} adminName={userName} />}
+            element={
+              <Homepage
+                admin={admin}
+                adminName={userName}
+                localData={localData}
+              />
+            }
           />
           <Route path="/cart" element={<Cart />} />
           <Route path="/dashboard" element={<Dashboard admin={admin} />} />
