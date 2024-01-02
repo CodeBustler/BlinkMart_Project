@@ -3,26 +3,9 @@
 @tailwind utilities;
 
 /* MORE CSS --------------------------------------- */
+
+/*ACTIVE LINK STYLE*/
 .active {
-	color: darkorange;
+	color: orange;
 	font-weight: 500;
-}
-
-/* ANIMATION -------------------------------------- */
-.loader {
-	border: 10px solid #f3f3f3;
-	border-top: 10px solid orange;
-	border-radius: 50%;
-	width: 70px;
-	height: 70px;
-	animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
 }

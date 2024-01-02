@@ -16,6 +16,7 @@ import SignUp from "./pages/signIn_signUp/SignUp";
 import Login from "./pages/signIn_signUp/Login";
 import React, { useEffect, useState, createContext } from "react";
 import { auth } from "./firebase";
+import { localData } from "./data";
 
 const MyContext = createContext();
 
@@ -35,26 +36,29 @@ function App() {
         }
         const result = await response.json();
         setProducts(result);
-        setLoading(false);
       } catch (error) {
+        setProducts(localData);
         console.error(error);
+      } finally {
         setLoading(false);
       }
     };
-    fetchData();
 
     // UPDATE USERNAME
-    const updateUserName = auth.onAuthStateChanged((user) => {
+    const updateUserName = (user) => {
       if (user) {
         setUserName(user.displayName);
-        user.email === "admin@blinkmart.com" ? setAdmin(true) : setAdmin(false);
+        setAdmin(user.email === "admin@blinkmart.com");
+        console.log(admin);
       } else {
         setUserName(null);
         console.log("User not logged in");
       }
-    });
+    };
+    const unsubscribeAuthStateChanged = auth.onAuthStateChanged(updateUserName);
 
-    return () => updateUserName();
+    fetchData();
+    return () => unsubscribeAuthStateChanged();
   }, []);
 
   // ROUTES

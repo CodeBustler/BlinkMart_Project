@@ -26,6 +26,10 @@ function Homepage() {
 										src={item.image}
 										alt="product-image"
 										className="object-contain w-[100%] h-[100%]"
+										onError={(e) => {
+											e.target.src =
+												"https://propertywiselaunceston.com.au/wp-content/themes/property-wise/images/no-image.png";
+										}}
 									/>
 								</div>
 								<h2 className="my-3 font-bold">
