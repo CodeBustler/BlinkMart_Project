@@ -113,6 +113,9 @@ function Login() {
 							Create account
 						</Link>
 					</p>
+					<Link to="/" className="text-md underline opacity-40 mt-1">
+						Continue as a guest
+					</Link>
 				</form>
 			</div>
 		</section>

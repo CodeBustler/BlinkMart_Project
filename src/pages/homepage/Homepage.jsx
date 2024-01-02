@@ -1,33 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
+import { MyContext } from "../../App";
 
-function Homepage({ admin }) {
-	const [products, setProducts] = useState([]);
-	const [loading, setLoading] = useState(true);
+function Homepage() {
+	const { products, loading } = useContext(MyContext);
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await fetch(
-					"https://fakestoreapi.com/products",
-				);
-				if (!response.ok) {
-					throw new Error("Failed to fetch data");
-				}
-
-				const result = await response.json();
-				setProducts(result);
-				setLoading(false);
-			} catch (error) {
-				console.error(error);
-				setLoading(false);
-			}
-		};
-
-		fetchData();
-	}, []);
 
 	return (
 		<>

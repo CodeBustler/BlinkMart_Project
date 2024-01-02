@@ -24,9 +24,8 @@ import { ToastContainer, toast } from "react-toastify";
 function Navbar() {
 	const [sidebarToggle, setSidebarToggle] = useState(true);
 	const { userName, setUserName, admin } = useContext(MyContext);
-	const toastWarn = () => toast.error("Logout !");
+	const toastLogout = () => toast.error("Logout !");
 
-	console.log(admin);
 	const handleNavLinkClick = () => {
 		setSidebarToggle(!sidebarToggle);
 	};
@@ -37,7 +36,7 @@ function Navbar() {
 		signOut(auth)
 			.then(() => {
 				setUserName("");
-				userName && toastWarn();
+				userName && toastLogout();
 				setTimeout(() => {
 					navigate("/login");
 				}, 2000);
@@ -234,13 +233,13 @@ function Navbar() {
 						</div>
 						{/*Trending*/}
 						<div className="p-4">
-							<NavLink
+							<Link
 								to="/products/electronics_and_devices"
 								className="font-semibold text-lg mb-2"
 								onClick={handleNavLinkClick}
 							>
 								Electronics & Devices
-							</NavLink>
+							</Link>
 							<ul className="flex flex-col leading-8">
 								<NavLink
 									to="/products/mobiles"
@@ -271,13 +270,13 @@ function Navbar() {
 						<hr />
 						{/*Trending*/}
 						<div className="p-4">
-							<NavLink
+							<Link
 								to="/products/mens_fashion"
 								className="font-semibold text-lg mb-2"
 								onClick={handleNavLinkClick}
 							>
 								Men's Fashion
-							</NavLink>
+							</Link>
 							<ul className="flex flex-col leading-8">
 								<NavLink
 									to="/products/mens_shirts"
@@ -293,7 +292,7 @@ function Navbar() {
 									Shoes & Sneakers
 								</NavLink>
 								<NavLink
-									to="/products/mens_shoes"
+									to="/products/jackets"
 									onClick={handleNavLinkClick}
 								>
 									Leather Jackets
@@ -303,13 +302,13 @@ function Navbar() {
 						<hr />
 						{/*Trending*/}
 						<div className="p-4">
-							<NavLink
+							<Link
 								to="/products/womens_fashion"
 								className="font-semibold text-lg mb-2"
 								onClick={handleNavLinkClick}
 							>
 								Women's Fashion
-							</NavLink>
+							</Link>
 							<ul className="flex flex-col leading-8">
 								<NavLink
 									to="/products/womens_dress"
@@ -334,13 +333,13 @@ function Navbar() {
 						<hr />
 						{/*Trending*/}
 						<div className="p-4">
-							<NavLink
+							<Link
 								to="/products/kids_fashion"
 								className="font-semibold text-lg mb-2"
 								onClick={handleNavLinkClick}
 							>
 								Kid's Fashion
-							</NavLink>
+							</Link>
 							<ul className="flex flex-col leading-8">
 								<NavLink
 									to="/products/kids_cloth"
@@ -359,13 +358,13 @@ function Navbar() {
 						<hr />
 						{/*Trending*/}
 						<div className="p-4">
-							<NavLink
+							<Link
 								to="/products/books"
 								className="font-semibold text-lg mb-2"
 								onClick={handleNavLinkClick}
 							>
 								Books
-							</NavLink>
+							</Link>
 							<ul className="flex flex-col leading-8">
 								<NavLink
 									to="/products/books_comics"
@@ -390,40 +389,40 @@ function Navbar() {
 						<hr />
 						{/*Trending*/}
 						<div className="p-4">
-							<NavLink
+							<Link
 								to="/products/jewellery"
 								className="font-semibold text-lg mb-2"
 								onClick={handleNavLinkClick}
 							>
 								Jewellery
-							</NavLink>
+							</Link>
 						</div>
 						<hr />
 						{/*Trending*/}
 						<div className="p-4">
-							<NavLink
+							<Link
 								to="/customer_service"
 								className="font-semibold text-lg mb-2 flex items-center gap-2"
 								onClick={handleNavLinkClick}
 							>
 								Customer Services
-							</NavLink>
-							<NavLink
+							</Link>
+							<Link
 								to="/customer_service"
 								className=" mb-2 flex items-center gap-2"
 								onClick={handleNavLinkClick}
 							>
 								<FaPhoneAlt className="text-lg text-gray-600" />
 								Tollfree Number
-							</NavLink>
-							<NavLink
+							</Link>
+							<Link
 								to="/customer_service"
 								className=" mb-2 flex items-center gap-2"
 								onClick={handleNavLinkClick}
 							>
 								<MdEmail className="text-lg text-gray-600" />
 								Send a Mail
-							</NavLink>
+							</Link>
 						</div>
 						<hr />
 						{/*Trending*/}

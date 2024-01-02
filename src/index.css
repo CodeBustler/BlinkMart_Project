@@ -4,7 +4,8 @@
 
 /* MORE CSS --------------------------------------- */
 .active {
-	color: orange;
+	color: darkorange;
+	font-weight: 500;
 }
 
 /* ANIMATION -------------------------------------- */
