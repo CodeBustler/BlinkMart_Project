@@ -7,8 +7,8 @@ import { auth } from "../../firebase";
 import { ToastContainer, toast } from "react-toastify";
 
 function Login() {
-	const navigate = useNavigate();
 	const [errorMsg, setErrorMsg] = useState("");
+	const navigate = useNavigate();
 	const toastSuccess = () => toast.success("Login Success !");
 
 	// Input Values

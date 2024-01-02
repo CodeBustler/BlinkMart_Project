@@ -7,8 +7,9 @@ import { signOut } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 
 function SignUp() {
-	const toastSuccess = () => toast.success("SignUp Success !");
+	const [errorMsg, setErrorMsg] = useState("");
 	const navigate = useNavigate();
+	const toastSuccess = () => toast.success("SignUp Success !");
 
 	// Input Values
 	const [values, setValues] = useState({
@@ -16,9 +17,6 @@ function SignUp() {
 		email: "",
 		password: "",
 	});
-
-	// Form Error Message
-	const [errorMsg, setErrorMsg] = useState("");
 
 	// Handle Submit
 	const handleSubmit = async (e) => {
@@ -42,13 +40,11 @@ function SignUp() {
 					displayName: values.name,
 				});
 				toastSuccess();
-				console.log(res);
 				setTimeout(() => {
 					navigate("/login");
 					navigate(0);
 				}, 1000);
 			} catch (error) {
-				console.error(error);
 				setErrorMsg(error.message.slice(9));
 			}
 		}

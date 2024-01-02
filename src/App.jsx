@@ -26,6 +26,7 @@ function App() {
   const [userName, setUserName] = useState("");
   const [admin, setAdmin] = useState(false);
 
+  // UPDATE USERNAME
   useEffect(() => {
     const updateUserName = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -42,10 +43,6 @@ function App() {
 
     return () => updateUserName();
   }, []);
-
-  useEffect(() => {
-    console.log(admin);
-  }, [admin]);
 
   // ROUTES
   const router = createBrowserRouter(
@@ -74,6 +71,7 @@ function App() {
       </Route>,
     ),
   );
+
   return (
     <MyContext.Provider value={{ userName, setUserName, admin }}>
       <RouterProvider router={router} />
