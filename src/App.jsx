@@ -1,4 +1,5 @@
 import {
+  Navigate,
   createBrowserRouter,
   createRoutesFromElements,
   Route,
@@ -20,14 +21,35 @@ import { localData } from "./data";
 
 const MyContext = createContext();
 
+// PROTECTED ROUTE
+// User
+const ProtectedRoute = ({ children }) => {
+  const user = localStorage.getItem("user");
+  if (user) {
+    return children;
+  } else {
+    return <Navigate to={"/login"} />;
+  }
+};
+
+// Admin
+const ProtectedRouteForAdmin = ({ children }) => {
+  const admin = JSON.parse(localStorage.getItem("user"));
+  if (admin.user.email === "admin@blinkmart.com") {
+    return children;
+  } else {
+    return <Navigate to={"/login"} />;
+  }
+};
+
 function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState(null);
   const [admin, setAdmin] = useState(false);
 
+  // FETCH DATA
   useEffect(() => {
-    // FETCH DATA
     const fetchData = async () => {
       try {
         const response = await fetch("https://fakestoreapi.com/products");
@@ -43,13 +65,16 @@ function App() {
         setLoading(false);
       }
     };
+    fetchData();
+  }, []);
 
-    // UPDATE USERNAME
+  // UPDATE USERNAME
+  useEffect(() => {
     const updateUserName = (user) => {
       if (user) {
         setUserName(user.displayName);
+        console.log("user" + userName);
         setAdmin(user.email === "admin@blinkmart.com");
-        console.log(admin);
       } else {
         setUserName(null);
         console.log("User not logged in");
@@ -57,9 +82,8 @@ function App() {
     };
     const unsubscribeAuthStateChanged = auth.onAuthStateChanged(updateUserName);
 
-    fetchData();
     return () => unsubscribeAuthStateChanged();
-  }, []);
+  });
 
   // ROUTES
   const router = createBrowserRouter(
@@ -68,7 +92,14 @@ function App() {
         <Route path="/" element={<RootLayout />}>
           <Route index element={<Homepage />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRouteForAdmin>
+                <Dashboard />
+              </ProtectedRouteForAdmin>
+            }
+          />
           <Route path="/products/:category" element={<Products />} />
           <Route path="/customer_service" element={<CustomerService />} />
           <Route path="/productDetail/:id" element={<ProductDetail />} />
@@ -86,6 +117,7 @@ function App() {
         userName,
         setUserName,
         admin,
+        setAdmin,
         products,
         setProducts,
         loading,

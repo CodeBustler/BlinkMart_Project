@@ -18,7 +18,6 @@ const AnimatedNumber = ({ target, duration }) => {
         requestAnimationFrame(update);
       }
     }
-
     update();
   }, [target, duration]);
 

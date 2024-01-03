@@ -20,11 +20,13 @@ import { MyContext } from "../../App";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import { ToastContainer, toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 function Navbar() {
 	const [sidebarToggle, setSidebarToggle] = useState(true);
-	const { userName, setUserName, admin } = useContext(MyContext);
+	const { userName, setUserName, admin, setAdmin } = useContext(MyContext);
 	const toastLogout = () => toast.error("Logout !");
+	const cartItem = useSelector((state) => state.cart);
 
 	const handleNavLinkClick = () => {
 		setSidebarToggle(!sidebarToggle);
@@ -35,11 +37,10 @@ function Navbar() {
 	const handleLogout = () => {
 		signOut(auth)
 			.then(() => {
-				setUserName("");
+				setUserName(null);
+				setAdmin(false);
 				userName && toastLogout();
-				setTimeout(() => {
-					navigate("/login");
-				}, 2000);
+				navigate("/login");
 				console.log("Signed out successfully");
 			})
 			.catch((error) => {
@@ -114,7 +115,7 @@ function Navbar() {
 					<NavLink className="flex items-center gap-1" to="/cart">
 						<LuShoppingCart className="text-3xl cursor-pointer " />
 						<span className="text-md md:text-lg font-bold text-orange-400">
-							{12}
+							{cartItem.length}
 						</span>
 					</NavLink>
 				</ul>

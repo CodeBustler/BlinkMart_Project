@@ -4,58 +4,62 @@ import { RiShoppingCartFill } from "react-icons/ri";
 import { IoMdSad } from "react-icons/io";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
+import { MyContext } from "../../App";
 
 function Login() {
 	const [errorMsg, setErrorMsg] = useState("");
 	const navigate = useNavigate();
+	const { userName, setUserName } = useContext(MyContext);
 	const toastSuccess = () => toast.success("Login Success !");
 
-	// Input Values
+	// INPUT VALUES (LOGIN)
 	const [values, setValues] = useState({
 		email: "",
 		password: "",
 	});
 
-	// Handle Submit
-	const handleSubmit = (e) => {
+	// HANDLE LOGIN SUBMIT
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		if (!values.email || !values.password) {
-			setErrorMsg("Please fill all fields");
-		} else if (!emailRegex.test(values.email)) {
-			setErrorMsg("Please enter a valid email address");
-		} else {
-			setErrorMsg("");
-			signInWithEmailAndPassword(auth, values.email, values.password)
-				.then((res) => {
-					toastSuccess();
-					setTimeout(() => {
-						navigate("/");
-						navigate(0);
-					}, 1000);
-				})
-				.catch((error) =>
-					console.log(error, setErrorMsg(error.message.slice(9))),
-				);
+
+		try {
+			// VALIDATAING ENTERED DETAILS
+			if (!values.email || !values.password) {
+				throw new Error("Please fill all fields");
+			}
+			if (!emailRegex.test(values.email)) {
+				throw new Error("Please enter a valid email address");
+			}
+
+			// ATTEMPT TO SINGIN WITH ENTERED DETAILS
+			const loggedInUser = await signInWithEmailAndPassword(
+				auth,
+				values.email,
+				values.password,
+			);
+			// UPDATING USER NAME
+			const currentUserName = loggedInUser.user.displayName;
+			setUserName(currentUserName);
+
+			toastSuccess(); // TOASTIFY
+
+			// SAVE USERDATA TO LOCAL STORAGE
+			localStorage.setItem("user", JSON.stringify(loggedInUser));
+
+			// NAVIGATE TO HOME IF LOGIN SUCCESS
+			console.log("Authentication successful");
+			navigate("/");
+		} catch (error) {
+			console.error(error);
+			setErrorMsg(error.message);
 		}
 	};
 
 	return (
 		<section className="h-[100vh]">
-			<ToastContainer
-				position="bottom-center"
-				autoClose={5000}
-				hideProgressBar={false}
-				newestOnTop={false}
-				closeOnClick
-				rtl={false}
-				pauseOnFocusLoss
-				draggable
-				pauseOnHover
-				theme="colored"
-			/>
 			{/*CONTAINER*/}
 			<div className="flex flex-col items-center pt-10">
 				{/*LOGO*/}

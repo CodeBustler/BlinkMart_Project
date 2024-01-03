@@ -2,10 +2,24 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 import { MyContext } from "../../App";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, deleteFromCart } from "../../redux/cartSlice";
 
 function Homepage() {
 	const { products, loading } = useContext(MyContext);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const cartItem = useSelector((state) => state.cart);
+
+	console.log(cartItem);
+
+	const addCart = (item) => {
+		dispatch(addToCart(item));
+	};
+
+	const deleteCart = (item) => {
+		dispatch(deleteFromCart(item.id));
+	};
 
 	return (
 		<>
@@ -38,7 +52,10 @@ function Homepage() {
 								<h2 className="my-2 font-bold text-xl text-gray-500">
 									$ {item.price}
 								</h2>
-								<button className="bg-orange-500 w-full py-1 rounded">
+								<button
+									className="bg-orange-500 w-full py-1 rounded"
+									onClick={() => addCart(item)}
+								>
 									Add To Cart
 								</button>
 							</div>
