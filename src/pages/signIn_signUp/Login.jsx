@@ -8,10 +8,10 @@ import { toast } from "react-toastify";
 import { MyContext } from "../../App";
 
 function Login() {
+	const adminEmail = import.meta.env.VITE_REACT_APP_ADMIN_EMAIL;
 	const [errorMsg, setErrorMsg] = useState("");
 	const navigate = useNavigate();
-	const { userName, setUserName } = useContext(MyContext);
-	const toastSuccess = () => toast.success("Login Success !");
+	const { userName, setUserName, setAdmin } = useContext(MyContext);
 
 	// INPUT VALUES (LOGIN)
 	const [values, setValues] = useState({
@@ -40,21 +40,37 @@ function Login() {
 				values.email,
 				values.password,
 			);
+
 			// UPDATING USER NAME
 			const currentUserName = loggedInUser.user.displayName;
 			setUserName(currentUserName);
 
-			toastSuccess(); // TOASTIFY
+			// CHECK IF THE USER IS AN ADMIN
+			const env = await import.meta.env;
+			const adminEmail = env.VITE_REACT_APP_ADMIN_EMAIL;
+
+			if (adminEmail && loggedInUser.user.email === adminEmail) {
+				setAdmin(true);
+				console.log("User is a admin");
+			} else {
+				setAdmin(false);
+				console.log("User is not an admin");
+			}
+
+			// TOASTIFY
+			const toastSuccess = () => toast.success("Login Success !");
+			toastSuccess();
 
 			// SAVE USERDATA TO LOCAL STORAGE
 			localStorage.setItem("user", JSON.stringify(loggedInUser));
 
 			// NAVIGATE TO HOME IF LOGIN SUCCESS
-			console.log("Authentication successful");
 			navigate("/");
+			console.log("Authentication successful");
 		} catch (error) {
 			console.error(error);
 			setErrorMsg(error.message);
+			console.log("Authentication Failed");
 		}
 	};
 

@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
+// FIREBASE CONFIG
 const firebaseConfig = {
   apiKey: "AIzaSyDqYxXweVaaBQhug3w81Wk6NirkvyaxVPs",
   authDomain: "blinkmart-ecommerce-project.firebaseapp.com",
@@ -12,8 +13,12 @@ const firebaseConfig = {
   measurementId: "G-HZLGQDEQNN",
 };
 
-// Initialize Firebase
+// INITIALIZE FIREBASE
 const app = initializeApp(firebaseConfig);
+
+// FOR STORING DATA
 const fireDB = getFirestore(app);
+
+// FOR AUTHENTICATION
 const auth = getAuth(app);
 export { fireDB, auth };

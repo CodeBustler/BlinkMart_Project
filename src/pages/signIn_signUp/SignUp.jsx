@@ -10,7 +10,6 @@ import { Timestamp, addDoc, collection } from "firebase/firestore";
 function SignUp() {
 	const [errorMsg, setErrorMsg] = useState("");
 	const navigate = useNavigate();
-	const toastSuccess = () => toast.success("SignUp Success !");
 
 	// INPUT VALUES (SIGN UP)
 	const [inputValues, setInputValues] = useState({
@@ -43,6 +42,7 @@ function SignUp() {
 					displayName: inputValues.name,
 				});
 
+				const toastSuccess = () => toast.success("SignUp Success !");
 				toastSuccess();
 				navigate("/login");
 

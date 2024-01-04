@@ -21,34 +21,13 @@ import { localData } from "./data";
 
 const MyContext = createContext();
 
-// PROTECTED ROUTE
-// User
-const ProtectedRoute = ({ children }) => {
-  const user = localStorage.getItem("user");
-  if (user) {
-    return children;
-  } else {
-    return <Navigate to={"/login"} />;
-  }
-};
-
-// Admin
-const ProtectedRouteForAdmin = ({ children }) => {
-  const admin = JSON.parse(localStorage.getItem("user"));
-  if (admin.user.email === "admin@blinkmart.com") {
-    return children;
-  } else {
-    return <Navigate to={"/login"} />;
-  }
-};
-
 function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userName, setUserName] = useState(null);
   const [admin, setAdmin] = useState(false);
 
-  // FETCH DATA
+  // FETCHING FAKE DATA
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -68,22 +47,40 @@ function App() {
     fetchData();
   }, []);
 
-  // UPDATE USERNAME
+  // UPDATE USERNAME ON AUTH STATE CHANGE
   useEffect(() => {
     const updateUserName = (user) => {
-      if (user) {
-        setUserName(user.displayName);
-        console.log("user" + userName);
-        setAdmin(user.email === "admin@blinkmart.com");
-      } else {
-        setUserName(null);
-        console.log("User not logged in");
-      }
+      user ? setUserName(user.displayName) : setUserName(null);
     };
     const unsubscribeAuthStateChanged = auth.onAuthStateChanged(updateUserName);
 
     return () => unsubscribeAuthStateChanged();
-  });
+  }, []);
+
+  // PROTECTED ROUTE FOR USER
+  const ProtectedRoute = ({ children }) => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      return children;
+    } else {
+      return <Navigate to={"/login"} />;
+    }
+  };
+
+  const env = import.meta.env;
+  const adminEmail = env.VITE_REACT_APP_ADMIN_EMAIL;
+
+  // PROTECTED ROUTE FOR ADMIN DASHBOARD
+  const ProtectedRouteForAdmin = ({ children }) => {
+    const admin = JSON.parse(localStorage.getItem("user"));
+
+    // CHECK IF THE USER IS AN ADMIN
+    if (admin.user.email === adminEmail) {
+      return children;
+    } else {
+      return <Navigate to={"/login"} />;
+    }
+  };
 
   // ROUTES
   const router = createBrowserRouter(
@@ -112,6 +109,7 @@ function App() {
   );
 
   return (
+    // CONTEXT API PROVIDER
     <MyContext.Provider
       value={{
         userName,

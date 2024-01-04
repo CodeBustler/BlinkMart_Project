@@ -9,7 +9,9 @@ import { ToastContainer } from "react-toastify";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    {/*REDUX PROVIDER*/}
     <Provider store={store}>
+      {/*TOASTIFY*/}
       <ToastContainer
         position="bottom-center"
         autoClose={2000}
