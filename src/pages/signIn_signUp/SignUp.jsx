@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { RiShoppingCartFill } from "react-icons/ri";
+import { IoMdSad } from "react-icons/io";
 import { useState } from "react";
 import { auth, fireDB } from "../../firebase";
 import { signOut } from "firebase/auth";
@@ -56,7 +57,7 @@ function SignUp() {
 				const userRef = collection(fireDB, "users");
 				await addDoc(userRef, user);
 			} catch (error) {
-				setErrorMsg(error.message.slice(9));
+				setErrorMsg(error.message);
 			}
 		}
 	};
@@ -121,7 +122,10 @@ function SignUp() {
 						Submit
 					</button>
 
-					<span className="text-red-500 font-semibold mt-2 ">
+					<span className="text-red-500 font-semibold mt-2 flex items-center gap-2">
+						{errorMsg.length > 0 && (
+							<IoMdSad className="text-2xl animate-bounce" />
+						)}
 						{errorMsg}
 					</span>
 					<p className="mt-2">

@@ -8,7 +8,7 @@ import flag from "../../assets/flag.png";
 import profileDefaultAvatar from "../../assets/profile-avatar.png";
 import { BsSearch } from "react-icons/bs";
 import { LuShoppingCart } from "react-icons/lu";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { FaPhoneAlt } from "react-icons/fa";
@@ -24,15 +24,20 @@ import { useSelector } from "react-redux";
 
 function Navbar() {
 	const [sidebarToggle, setSidebarToggle] = useState(true);
+	const navigate = useNavigate();
+	const cartItem = useSelector((state) => state.cart);
+
 	const { userName, setUserName, admin, setAdmin } = useContext(MyContext);
 	const toastLogout = () => toast.error("Logout !");
-	const cartItem = useSelector((state) => state.cart);
 
 	const handleNavLinkClick = () => {
 		setSidebarToggle(!sidebarToggle);
 	};
 
-	const navigate = useNavigate();
+	useEffect(() => {
+		const userDetail = JSON.parse(localStorage.getItem("user"));
+		setAdmin(userDetail.user.email === "admin@blinkmart.com");
+	}, []);
 
 	const handleLogout = () => {
 		signOut(auth)
@@ -40,6 +45,7 @@ function Navbar() {
 				setUserName(null);
 				setAdmin(false);
 				userName && toastLogout();
+				localStorage.removeItem("user");
 				navigate("/login");
 				console.log("Signed out successfully");
 			})

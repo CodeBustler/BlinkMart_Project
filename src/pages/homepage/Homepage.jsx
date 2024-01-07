@@ -14,7 +14,8 @@ function Homepage() {
 	console.log(cartItem);
 
 	const addCart = (item) => {
-		dispatch(addToCart(item));
+		const user = localStorage.getItem("user");
+		user ? dispatch(addToCart(item)) : navigate("/login");
 	};
 
 	const deleteCart = (item) => {

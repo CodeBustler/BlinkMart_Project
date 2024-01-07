@@ -3,11 +3,13 @@ import { MyContext } from "../../App";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BsFillBoxSeamFill } from "react-icons/bs";
-import { RiEBike2Fill } from "react-icons/ri";
+import { RiEBike2Fill, RiShoppingCartFill } from "react-icons/ri";
 import { PiUsersThreeFill } from "react-icons/pi";
 import { PiKeyReturnFill } from "react-icons/pi";
 import { FaListUl } from "react-icons/fa";
 import AnimatedNumber from "../../components/AnimateText";
+import LinkHomePage from "../../components/LinkHomePage";
+
 import ProductsTable from "./tableData/ProductsTable";
 import OrdersTable from "./tableData/OrdersTable";
 import UsersTable from "./tableData/UsersTable";
@@ -35,9 +37,10 @@ function Dashboard() {
 	};
 	return (
 		<>
+			<LinkHomePage />
 			{admin ? (
-				<div>
-					<h1 className="text-xl font-semibold text-center md:text-left">
+				<div className="m-5">
+					<h1 className="text-2xl font-bold my-3 text-center md:text-left">
 						Dashboard
 					</h1>
 					<div className="container mx-auto mt-7 ">
