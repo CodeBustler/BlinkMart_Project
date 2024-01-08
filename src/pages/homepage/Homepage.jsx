@@ -38,13 +38,12 @@ function Homepage() {
 								{/* Product Image */}
 								<div className="object-center object-cover h-[200px]">
 									<img
-										src={item.image}
+										src={item.imageUrl}
 										alt="product-image"
-										className="object-contain w-[100%] h-[100%]"
-										onError={(e) => {
-											e.target.src =
-												"https://propertywiselaunceston.com.au/wp-content/themes/property-wise/images/no-image.png";
-										}}
+										className="object-contain w-[100%] h-[100%] cursor-pointer"
+										onClick={() =>
+											navigate(`/ProductDetail/${index}`)
+										}
 									/>
 								</div>
 								<h2 className="my-3 font-bold">

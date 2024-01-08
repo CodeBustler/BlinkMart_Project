@@ -16,6 +16,9 @@ import {
 } from "react-router-dom";
 import AddProduct from "../pages/dashboard/crud/AddProduct";
 import { useEffect } from "react";
+
+// ---------------------------------------------------------------
+
 // PROTECTED ROUTE FOR USER
 const ProtectedRoute = ({ children }) => {
 	const user = localStorage.getItem("user");
@@ -40,6 +43,8 @@ const ProtectedRouteForAdmin = ({ children }) => {
 		return <Navigate to={"/login"} />;
 	}
 };
+
+// ---------------------------------------------------------------
 
 // ROUTES
 const router = createBrowserRouter(

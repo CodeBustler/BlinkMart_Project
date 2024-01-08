@@ -22,6 +22,8 @@ import { auth } from "../../firebase";
 import { ToastContainer, toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
+// ---------------------------------------------------------------
+
 function Navbar() {
 	const [sidebarToggle, setSidebarToggle] = useState(true);
 	const navigate = useNavigate();
@@ -54,6 +56,8 @@ function Navbar() {
 			});
 	};
 
+	// ---------------------------------------------------------------
+
 	return (
 		<header className="flex flex-col sticky top-0 z-10">
 			<ToastContainer
@@ -66,6 +70,9 @@ function Navbar() {
 				draggable
 				theme="colored"
 			/>
+
+			{/*---------------------------------------------------------------*/}
+
 			{/*FIRST ROW*/}
 			<nav className="bg-[#131921] flex items-center justify-between px-4 py-3 gap-3  text-white ">
 				<Link
@@ -126,6 +133,9 @@ function Navbar() {
 					</NavLink>
 				</ul>
 			</nav>
+
+			{/*---------------------------------------------------------------*/}
+
 			{/*SECOND ROW*/}
 			<ul className="bg-[#232F3E] px-5 py-2 flex items-center  gap-x-8 gap-y-4 hidden md:flex flex-wrap text-white  ">
 				{/*ALL PRODUCTS*/}
@@ -177,6 +187,8 @@ function Navbar() {
 					Customer Service
 				</NavLink>
 			</ul>
+
+			{/*---------------------------------------------------------------*/}
 
 			{/*BG TRANSPARENT*/}
 			<div
@@ -293,7 +305,7 @@ function Navbar() {
 								</NavLink>
 
 								<NavLink
-									to="/products/mens_shoes"
+									to="/products/mens_footwear"
 									onClick={handleNavLinkClick}
 								>
 									Shoes & Sneakers
@@ -403,6 +415,26 @@ function Navbar() {
 							>
 								Jewellery
 							</Link>
+							<ul className="flex flex-col leading-8">
+								<NavLink
+									to="/products/jewellery_gold"
+									onClick={handleNavLinkClick}
+								>
+									Gold
+								</NavLink>
+								<NavLink
+									to="/products/jewellery_silver"
+									onClick={handleNavLinkClick}
+								>
+									Silver
+								</NavLink>
+								<NavLink
+									to="/products/jewellery_platinum"
+									onClick={handleNavLinkClick}
+								>
+									Platinum
+								</NavLink>
+							</ul>
 						</div>
 						<hr />
 						{/*Trending*/}

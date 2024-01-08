@@ -1,15 +1,42 @@
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router/routes";
 import React, { useEffect, useState, createContext } from "react";
-import { auth } from "./firebase";
+import { auth, fireDB } from "./firebase";
+import { Timestamp } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 const MyContext = createContext();
 
 function App() {
+  const [fakeProducts, setFakeProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userName, setUserName] = useState(null);
   const [admin, setAdmin] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [product, setProduct] = useState({
+    title: "",
+    brand: "",
+    imageUrl: "",
+    price: "",
+    actualPrice: "",
+    rating: "",
+    ratingCount: "",
+    description: "",
+    category: "",
+    subCategory: "",
+    delivery: "",
+    time: Timestamp.now(),
+    date: new Date().toLocaleString("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+    }),
+  });
+  const toastSuccess = () => toast.success("Product Added");
+
+  //-------------------------------------------------------
 
   // FETCHING FAKE DATA
   useEffect(() => {
@@ -20,9 +47,9 @@ function App() {
           throw new Error("Failed to fetch data");
         }
         const result = await response.json();
-        setProducts(result);
+        setFakeProducts(result);
       } catch (error) {
-        setProducts(localData);
+        setFakeProducts(localData);
         console.error(error);
       } finally {
         setLoading(false);
@@ -41,6 +68,78 @@ function App() {
     return () => unsubscribeAuthStateChanged();
   }, []);
 
+  //-------------------------------------------------------
+
+  // ADD PRODUCT FUNCTION
+  const addProduct = async (e) => {
+    e.preventDefault();
+
+    if (
+      !product.title ||
+      !product.brand ||
+      !product.imageUrl ||
+      !product.price ||
+      !product.actualPrice ||
+      !product.rating ||
+      !product.ratingCount ||
+      !product.description ||
+      !product.category ||
+      !product.subCategory ||
+      !product.delivery
+    ) {
+      setErrorMsg("Please fill all fields");
+      return;
+    }
+    try {
+      const docRef = await addDoc(collection(fireDB, "products"), product);
+      console.log("Document written with ID: ", docRef.id);
+      toastSuccess();
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    } finally {
+      handleReset();
+      fetchProducts();
+    }
+  };
+
+  // GET PRODUCTS
+  const fetchProducts = async () => {
+    const data = await getDocs(collection(fireDB, "products"));
+    const productData = [];
+    data.forEach((doc) => {
+      productData.push({ ...doc.data(), id: doc.id });
+    });
+    setProducts(productData);
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  console.log(products);
+  //---------------------------------------------------------------------
+
+  // HANDLE RESET BUTTON
+  const handleReset = () => {
+    setProduct({
+      title: "",
+      brand: "",
+      imageUrl: "",
+      price: "",
+      actualPrice: "",
+      rating: "",
+      ratingCount: "",
+      description: "",
+      category: "",
+      subCategory: "",
+      delivery: "",
+    });
+
+    setErrorMsg("");
+  };
+
+  //-------------------------------------------------------
+
   return (
     // CONTEXT API PROVIDER
     <MyContext.Provider
@@ -51,6 +150,12 @@ function App() {
         setAdmin,
         products,
         setProducts,
+        fakeProducts,
+        errorMsg,
+        setErrorMsg,
+        addProduct,
+        handleReset,
+        setFakeProducts,
         loading,
         setLoading,
       }}

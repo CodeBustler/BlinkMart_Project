@@ -3,67 +3,83 @@ import { MyContext } from "../../../App";
 import { Link } from "react-router-dom";
 import { RiShoppingCartFill } from "react-icons/ri";
 import { IoMdSad } from "react-icons/io";
-import { toast } from "react-toastify";
 import LinkHomePage from "../../../components/LinkHomePage";
 
 function AddProduct() {
 	const context = useContext(MyContext);
-	const toastSuccess = () => toast.success("Product Added");
-	const [product, setProduct] = useState({
-		title: "",
-		brand: "",
-		imageUrl: "",
-		price: "",
-		actualPrice: "",
-		rating: "",
-		ratingCount: "",
-		description: "",
-	});
+	const {
+		product,
+		setProduct,
+		addProduct,
+		handleReset,
+		admin,
+		loading,
+		errorMsg,
+		setErrorMsg,
+	} = context;
 
 	console.log(product);
+	//---------------------------------------------------------------------
+	const categoryOptions = [
+		{ value: "1", label: "Electronics & Devices" },
+		{ value: "2", label: "Men's Fashion" },
+		{ value: "3", label: "Women's Fashion" },
+		{ value: "4", label: "Kid's Fashion" },
+		{ value: "5", label: "Jewellery" },
+		{ value: "6", label: "Books" },
+	];
 
-	const [errorMsg, setErrorMsg] = useState("");
-	const { admin, loading } = context;
-
-	// HANDLE SUBMIT BUTTON
-	const handleSubmit = (e) => {
-		e.preventDefault();
-
-		if (
-			!product.title ||
-			!product.brand ||
-			!product.imageUrl ||
-			!product.price ||
-			!product.actualPrice ||
-			!product.rating ||
-			!product.ratingCount ||
-			!product.description ||
-			!product.category ||
-			!product.subCategory
-		) {
-			setErrorMsg("Please fill all fields");
-			return;
-		}
-		toastSuccess();
-		handleReset();
+	const subCategoryOptions = {
+		1: [
+			{ value: "1.1", label: "Mobiles" },
+			{ value: "1.2", label: "Laptops" },
+			{ value: "1.3", label: "Tablets" },
+			{ value: "1.4", label: "Smart Watches" },
+		],
+		2: [
+			{ value: "2.1", label: "Shirts & T-Shirts" },
+			{ value: "2.2", label: "Shoes & Sneakers" },
+			{ value: "2.3", label: "Leather Jackets" },
+		],
+		3: [
+			{ value: "3.1", label: "Dresses" },
+			{ value: "3.2", label: "Top Western" },
+			{ value: "3.3", label: "Footwear" },
+		],
+		4: [
+			{ value: "4.1", label: "Kids Cloth" },
+			{ value: "4.2", label: "Kids Footwear" },
+		],
+		5: [
+			{ value: "5.1", label: "Gold" },
+			{ value: "5.2", label: "Silver" },
+			{ value: "5.3", label: "Platinum" },
+		],
+		6: [
+			{ value: "6.1", label: "Comics" },
+			{ value: "6.2", label: "Devotional" },
+			{ value: "6.3", label: "Programming" },
+		],
 	};
 
-	const handleReset = () => {
-		setProduct({
-			title: "",
-			brand: "",
-			imageUrl: "",
-			price: "",
-			actualPrice: "",
-			rating: "",
-			ratingCount: "",
-			description: "",
-			category: "",
-			subCategory: "",
-		});
-
-		setErrorMsg("");
+	const handleCategoryChange = (event) => {
+		const selectedCategory = event.target.value;
+		setProduct((prev) => ({
+			...prev,
+			category: selectedCategory,
+			subCategory: "", // Reset subCategory when category changes
+		}));
 	};
+
+	const handleSubCategoryChange = (event) => {
+		const selectedSubCategory = event.target.value;
+		setProduct((prev) => ({
+			...prev,
+			subCategory: selectedSubCategory,
+		}));
+	};
+
+	//---------------------------------------------------------------------
 
 	return (
 		<>
@@ -76,6 +92,8 @@ function AddProduct() {
 					{/*CONTAINER*/}
 					<div className="container">
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+							{/*------------------------------------------------------------------*/}
+
 							{/*PRODUCT DETAIL*/}
 							<div>
 								<h2 className="font-semibold text-gray-600">
@@ -132,96 +150,78 @@ function AddProduct() {
 										}
 									/>
 								</div>
-								<div className="mt-8">
+								<div className="mt-5">
 									<h2 className="font-semibold text-gray-600">
 										Free delivery
 									</h2>
 									<div className="flex gap-5">
 										<select
 											className="border py-2 px-3 mt-3 rounded-lg outline-blue-300 w-[100%] "
-											value={product.rating}
+											value={product.delivery}
 											onChange={(event) =>
 												setProduct((prev) => ({
 													...prev,
-													rating: event.target.value,
+													delivery:
+														event.target.value,
 												}))
 											}
 										>
-											<option value="true">Yes</option>
-											<option value="false">No</option>
+											<option value={true}>Yes</option>
+											<option value={false}>No</option>
 										</select>
 									</div>
 								</div>
 							</div>
+
+							{/*-------------------------------------------------------------------*/}
+
 							{/*PRODUCT CATEGORY*/}
 							<div className="flex flex-col">
 								<h2 className="font-semibold text-gray-600">
 									Product Category
 								</h2>
-								<div>
+								<div className="flex gap-5">
 									<select
-										className="border py-2 px-3 mt-3 rounded-lg outline-blue-300 w-[100%] "
+										className="border py-2 px-3 mt-2 rounded-lg outline-blue-300 w-[50%]"
 										value={product.category}
-										onChange={(event) =>
-											setProduct((prev) => ({
-												...prev,
-												category: event.target.value,
-											}))
-										}
+										onChange={handleCategoryChange}
 									>
-										<option value="" defaultValue hidden>
+										<option value="" defaultValue disabled>
 											Category
 										</option>
-										<option value="electronics_and_devices">
-											Electronics & Devices
-										</option>
-										<option value="mens_fashion">
-											Men's Fashion
-										</option>
-										<option value="womens_fashion">
-											Women's Fashion
-										</option>
-										<option value="kids_fashion">
-											Kid's Fashion
-										</option>
-										<option value="jewellery">
-											Jewelley
-										</option>
-										<option value="books">Books</option>
+										{categoryOptions.map((option) => (
+											<option
+												key={option.value}
+												value={option.value}
+											>
+												{option.label}
+											</option>
+										))}
 									</select>
 
 									<select
-										className="border py-2 px-3 mt-3 rounded-lg outline-blue-300 w-[100%]"
+										className="border py-2 px-3 mt-2 rounded-lg outline-blue-300 w-[50%]"
 										value={product.subCategory}
-										onChange={(event) =>
-											setProduct((prev) => ({
-												...prev,
-												subCategory: event.target.value,
-											}))
-										}
+										onChange={handleSubCategoryChange}
+										disabled={!product.category} // Disable if no category selected
 									>
-										<option value="" defaultValue hidden>
+										<option value="" defaultValue disabled>
 											Sub Category
 										</option>
-										<option value="electronics_and_devices">
-											Electronics & Devices
-										</option>
-										<option value="mens_fashion">
-											Men's Fashion
-										</option>
-										<option value="womens_fashion">
-											Women's Fashion
-										</option>
-										<option value="kids_fashion">
-											Kid's Fashion
-										</option>
-										<option value="jewellery">
-											Jewelley
-										</option>
-										<option value="books">Books</option>
+										{subCategoryOptions[product.category] &&
+											subCategoryOptions[
+												product.category
+											].map((option) => (
+												<option
+													key={option.value}
+													value={option.value}
+												>
+													{option.label}
+												</option>
+											))}
 									</select>
 								</div>
-								<div className="mt-8">
+								<div className="mt-6">
 									<h2 className="font-semibold text-gray-600">
 										Product Rating
 									</h2>
@@ -239,7 +239,7 @@ function AddProduct() {
 											<option
 												value=""
 												defaultValue
-												hidden
+												disabled
 											>
 												Select Rating
 											</option>
@@ -265,7 +265,10 @@ function AddProduct() {
 										/>
 									</div>
 								</div>
-								<div className="mt-8">
+
+								{/*----------------------------------------------------------------*/}
+
+								<div className="mt-7">
 									<h2 className="font-semibold text-gray-600">
 										Product Price
 									</h2>
@@ -300,10 +303,10 @@ function AddProduct() {
 							</div>
 						</div>
 					</div>
-					<div className="flex  gap-5 mt-6 flex-col md:flex-row ">
+					<div className="flex  gap-5 mt-8 flex-col md:flex-row ">
 						<button
-							className="bg-yellow-400 p-2 rounded-lg outline-blue-300 hover:bg-yellow-500 active:bg-yellow-400 px-6 "
-							onClick={(e) => handleSubmit(e)}
+							className="bg-yellow-400 p-2 rounded-lg outline-blue-300 hover:bg-yellow-500 active:bg-yellow-400 px-6  "
+							onClick={addProduct}
 						>
 							Add Product
 						</button>
