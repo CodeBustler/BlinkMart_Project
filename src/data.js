@@ -120,6 +120,9 @@ export const localData = [
 			"Samsung Galaxy S23 Ultra 5G (Green, 12GB, 256GB Storage) powered by a potent Snapdragon 8 Gen 2 processor. Its advanced camera excels in low light, high-resolution photos, while the Dynamic AMOLED 2X display delivers clear details in any lighting. it's ideal for gaming and power efficiency.",
 		images: {
 			img1: "https://m.media-amazon.com/images/I/51hqXIAVXAL._SX679_.jpg",
+			img2: "https://m.media-amazon.com/images/I/61WZtv4Xy-L._SX679_.jpg",
+			img3: "https://m.media-amazon.com/images/I/71Q7QmC1X1L._SX679_.jpg",
+			img4: "https://m.media-amazon.com/images/I/71nu6ZWKBWL._SX679_.jpg",
 		},
 		price: 98900,
 		actualPrice: 149999,
@@ -696,7 +699,7 @@ export const localData = [
 	},
 	{
 		id: 32,
-		title: "boAt Wave Style ",
+		title: "boAt Wave Style",
 		brand: "boat",
 		description:
 			"boAt Wave Style Call Smart Watch with Advanced BT Calling Chip,DIY Watch Face Studio, Coins, 1.69 HD Display, Health Ecosystem, Live Cricket Scores, Quick Replies, HR & SpO2(Olive Green), BT Calling- Connect seamlessly, effortlessly with wave style call’s advanced bluetooth calling which ensures faster, stronger and improved connection. Volume Control For Music and calls-Yes, boAt Coins- Get vouchers/coupons that can be redeemed on our boAt Crest App basis your workouts!, Live Cricket Score- Get live scores of cricket tournaments on the go with Wave Style Call.",

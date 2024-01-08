@@ -7,18 +7,9 @@ import LinkHomePage from "../../../components/LinkHomePage";
 
 function AddProduct() {
 	const context = useContext(MyContext);
-	const {
-		product,
-		setProduct,
-		addProduct,
-		handleReset,
-		admin,
-		loading,
-		errorMsg,
-		setErrorMsg,
-	} = context;
+	const { product, setProduct, addProduct, handleReset, loading, errorMsg } =
+		context;
 
-	console.log(product);
 	//---------------------------------------------------------------------
 	const categoryOptions = [
 		{ value: "1", label: "Electronics & Devices" },
@@ -67,7 +58,8 @@ function AddProduct() {
 		setProduct((prev) => ({
 			...prev,
 			category: selectedCategory,
-			subCategory: "", // Reset subCategory when category changes
+			// Reset subCategory when category changes
+			subCategory: "",
 		}));
 	};
 
@@ -124,18 +116,6 @@ function AddProduct() {
 											}))
 										}
 									/>
-									<input
-										type="text"
-										placeholder="ImageURL"
-										className="border py-2 px-3 mt-3 rounded-lg  outline-blue-300"
-										value={product.imageUrl}
-										onChange={(event) =>
-											setProduct((prev) => ({
-												...prev,
-												imageUrl: event.target.value,
-											}))
-										}
-									/>
 
 									<input
 										type="text"
@@ -152,23 +132,65 @@ function AddProduct() {
 								</div>
 								<div className="mt-5">
 									<h2 className="font-semibold text-gray-600">
-										Free delivery
+										Product Images (Links)
 									</h2>
 									<div className="flex gap-5">
-										<select
-											className="border py-2 px-3 mt-3 rounded-lg outline-blue-300 w-[100%] "
-											value={product.delivery}
-											onChange={(event) =>
-												setProduct((prev) => ({
-													...prev,
-													delivery:
-														event.target.value,
-												}))
-											}
-										>
-											<option value={true}>Yes</option>
-											<option value={false}>No</option>
-										</select>
+										<div>
+											<input
+												type="text"
+												placeholder="Image 1"
+												className="border py-2 px-3 mt-3 rounded-lg  outline-blue-300 w-[100%]"
+												value={product.img1}
+												onChange={(event) =>
+													setProduct((prev) => ({
+														...prev,
+														img1: event.target
+															.value,
+													}))
+												}
+											/>
+											<input
+												type="text"
+												placeholder="Image 2"
+												className="border py-2 px-3 mt-3 rounded-lg  outline-blue-300 w-[100%]"
+												value={product.img2}
+												onChange={(event) =>
+													setProduct((prev) => ({
+														...prev,
+														img2: event.target
+															.value,
+													}))
+												}
+											/>
+										</div>
+										<div>
+											<input
+												type="text"
+												placeholder="Image 3"
+												className="border py-2 px-3 mt-3 rounded-lg  outline-blue-300 w-[100%]"
+												value={product.img3}
+												onChange={(event) =>
+													setProduct((prev) => ({
+														...prev,
+														img3: event.target
+															.value,
+													}))
+												}
+											/>
+											<input
+												type="text"
+												placeholder="Image 4"
+												className="border py-2 px-3 mt-3 rounded-lg  outline-blue-300 w-[100%]"
+												value={product.img4}
+												onChange={(event) =>
+													setProduct((prev) => ({
+														...prev,
+														img4: event.target
+															.value,
+													}))
+												}
+											/>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -180,9 +202,9 @@ function AddProduct() {
 								<h2 className="font-semibold text-gray-600">
 									Product Category
 								</h2>
-								<div className="flex gap-5">
+								<div className="flex flex-col">
 									<select
-										className="border py-2 px-3 mt-2 rounded-lg outline-blue-300 w-[50%]"
+										className="border py-2 px-3 mt-3 rounded-lg outline-blue-300 "
 										value={product.category}
 										onChange={handleCategoryChange}
 									>
@@ -200,7 +222,7 @@ function AddProduct() {
 									</select>
 
 									<select
-										className="border py-2 px-3 mt-2 rounded-lg outline-blue-300 w-[50%]"
+										className="border py-2 px-3 mt-3 rounded-lg outline-blue-300 "
 										value={product.subCategory}
 										onChange={handleSubCategoryChange}
 										disabled={!product.category} // Disable if no category selected

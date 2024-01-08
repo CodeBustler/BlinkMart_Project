@@ -38,7 +38,9 @@ function Navbar() {
 
 	useEffect(() => {
 		const userDetail = JSON.parse(localStorage.getItem("user"));
-		setAdmin(userDetail.user.email === "admin@blinkmart.com");
+		if (userDetail) {
+			setAdmin(userDetail.user.email === "admin@blinkmart.com");
+		}
 	}, []);
 
 	const handleLogout = () => {

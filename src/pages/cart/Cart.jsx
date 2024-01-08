@@ -24,7 +24,7 @@ function Cart() {
 						return (
 							<div className="flex gap-5 p-4 border rounded-xl ">
 								<img
-									src={item.imageUrl}
+									src={item.img1}
 									alt="product_image"
 									className="w-[10%] cursor-pointer"
 								/>

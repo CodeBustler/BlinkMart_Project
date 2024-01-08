@@ -9,16 +9,18 @@ import { toast } from "react-toastify";
 const MyContext = createContext();
 
 function App() {
-  const [fakeProducts, setFakeProducts] = useState([]);
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [userName, setUserName] = useState(null);
-  const [admin, setAdmin] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [admin, setAdmin] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   const [product, setProduct] = useState({
     title: "",
     brand: "",
-    imageUrl: "",
+    img1: "",
+    img2: "",
+    img3: "",
+    img4: "",
     price: "",
     actualPrice: "",
     rating: "",
@@ -26,7 +28,6 @@ function App() {
     description: "",
     category: "",
     subCategory: "",
-    delivery: "",
     time: Timestamp.now(),
     date: new Date().toLocaleString("en-US", {
       month: "short",
@@ -37,27 +38,6 @@ function App() {
   const toastSuccess = () => toast.success("Product Added");
 
   //-------------------------------------------------------
-
-  // FETCHING FAKE DATA
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://fakestoreapi.com/products");
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        const result = await response.json();
-        setFakeProducts(result);
-      } catch (error) {
-        setFakeProducts(localData);
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
-
   // UPDATE USERNAME ON AUTH STATE CHANGE
   useEffect(() => {
     const updateUserName = (user) => {
@@ -77,15 +57,17 @@ function App() {
     if (
       !product.title ||
       !product.brand ||
-      !product.imageUrl ||
+      !product.img1 ||
+      !product.img2 ||
+      !product.img3 ||
+      !product.img4 ||
       !product.price ||
       !product.actualPrice ||
       !product.rating ||
       !product.ratingCount ||
       !product.description ||
       !product.category ||
-      !product.subCategory ||
-      !product.delivery
+      !product.subCategory
     ) {
       setErrorMsg("Please fill all fields");
       return;
@@ -104,11 +86,13 @@ function App() {
 
   // GET PRODUCTS
   const fetchProducts = async () => {
+    setLoading(true);
     const data = await getDocs(collection(fireDB, "products"));
     const productData = [];
     data.forEach((doc) => {
       productData.push({ ...doc.data(), id: doc.id });
     });
+    setLoading(false);
     setProducts(productData);
   };
 
@@ -124,7 +108,10 @@ function App() {
     setProduct({
       title: "",
       brand: "",
-      imageUrl: "",
+      img1: "",
+      img2: "",
+      img3: "",
+      img4: "",
       price: "",
       actualPrice: "",
       rating: "",
@@ -132,7 +119,6 @@ function App() {
       description: "",
       category: "",
       subCategory: "",
-      delivery: "",
     });
 
     setErrorMsg("");
@@ -150,12 +136,12 @@ function App() {
         setAdmin,
         products,
         setProducts,
-        fakeProducts,
         errorMsg,
         setErrorMsg,
+        product,
+        setProduct,
         addProduct,
         handleReset,
-        setFakeProducts,
         loading,
         setLoading,
       }}

@@ -21,7 +21,6 @@ function Homepage() {
 	const deleteCart = (item) => {
 		dispatch(deleteFromCart(item.id));
 	};
-
 	return (
 		<>
 			{loading ? (
@@ -38,7 +37,7 @@ function Homepage() {
 								{/* Product Image */}
 								<div className="object-center object-cover h-[200px]">
 									<img
-										src={item.imageUrl}
+										src={item.img1}
 										alt="product-image"
 										className="object-contain w-[100%] h-[100%] cursor-pointer"
 										onClick={() =>
@@ -46,12 +45,13 @@ function Homepage() {
 										}
 									/>
 								</div>
-								<h2 className="my-3 font-bold">
-									{item.title.slice(0, 20)}...
-								</h2>
 								<h2 className="my-2 font-bold text-xl text-gray-500">
 									$ {item.price}
 								</h2>
+								<h2 className="my-3 font-bold">
+									{item.title.slice(0, 20)}...
+								</h2>
+
 								<button
 									className="bg-orange-500 w-full py-1 rounded"
 									onClick={() => addCart(item)}
