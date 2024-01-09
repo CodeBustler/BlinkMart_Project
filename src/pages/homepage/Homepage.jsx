@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Loader from "../../components/Loader";
+import Loader from "../../components/Animation/Loader";
 import { MyContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, deleteFromCart } from "../../redux/cartSlice";
+import ProductCard from "../../components/ProductCard/ProductCard";
 
 function Homepage() {
-	const { products, loading } = useContext(MyContext);
+	const { products, loading, numberWithCommas } = useContext(MyContext);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const cartItem = useSelector((state) => state.cart);
@@ -30,35 +31,11 @@ function Homepage() {
 					<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
 						{/*MAPPING PRODUCTS*/}
 						{products.map((item, index) => (
-							<div
+							<ProductCard
 								key={index}
-								className="border border-gray-300 rounded-md p-5 transition"
-							>
-								{/* Product Image */}
-								<div className="object-center object-cover h-[200px]">
-									<img
-										src={item.img1}
-										alt="product-image"
-										className="object-contain w-[100%] h-[100%] cursor-pointer"
-										onClick={() =>
-											navigate(`/ProductDetail/${index}`)
-										}
-									/>
-								</div>
-								<h2 className="my-2 font-bold text-xl text-gray-500">
-									$ {item.price}
-								</h2>
-								<h2 className="my-3 font-bold">
-									{item.title.slice(0, 20)}...
-								</h2>
-
-								<button
-									className="bg-orange-500 w-full py-1 rounded"
-									onClick={() => addCart(item)}
-								>
-									Add To Cart
-								</button>
-							</div>
+								item={item}
+								numberWithCommas={numberWithCommas}
+							/>
 						))}
 					</div>
 				</div>

@@ -14,6 +14,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [admin, setAdmin] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
+  const [scrollLeft, setScrollLeft] = useState(0);
   const [product, setProduct] = useState({
     title: "",
     brand: "",
@@ -35,8 +36,7 @@ function App() {
       year: "numeric",
     }),
   });
-  const toastSuccess = () => toast.success("Product Added");
-
+  const toastSuccess = () => toast.success("Product Added To Database !");
   //-------------------------------------------------------
   // UPDATE USERNAME ON AUTH STATE CHANGE
   useEffect(() => {
@@ -102,6 +102,11 @@ function App() {
 
   console.log(products);
   //---------------------------------------------------------------------
+  //  Number With Commans
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  //---------------------------------------------------------------------
 
   // HANDLE RESET BUTTON
   const handleReset = () => {
@@ -125,6 +130,23 @@ function App() {
   };
 
   //-------------------------------------------------------
+  // FUNCTION TO FILTER
+  const fitlerByCategory = (category) => {
+    return products.filter((products) => products.category === category);
+  };
+
+  const fitlerBySubCategory = (subCategory) => {
+    return products.filter((products) => products.subCategory === subCategory);
+  };
+
+  const electronicAndDevices = fitlerByCategory("1");
+  const mobiles = fitlerBySubCategory("1.1");
+  mobiles.reverse();
+  const laptops = fitlerBySubCategory("1.2");
+  const tablets = fitlerBySubCategory("1.3");
+  const smartWatches = fitlerBySubCategory("1.4");
+  const electronics = [mobiles, laptops, tablets, smartWatches];
+  //-------------------------------------------------------
 
   return (
     // CONTEXT API PROVIDER
@@ -144,6 +166,8 @@ function App() {
         handleReset,
         loading,
         setLoading,
+        electronics,
+        numberWithCommas,
       }}
     >
       <RouterProvider router={router} />

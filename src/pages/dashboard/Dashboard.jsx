@@ -7,9 +7,8 @@ import { RiEBike2Fill, RiShoppingCartFill } from "react-icons/ri";
 import { PiUsersThreeFill } from "react-icons/pi";
 import { PiKeyReturnFill } from "react-icons/pi";
 import { FaListUl } from "react-icons/fa";
-import AnimatedNumber from "../../components/AnimateText";
-import LinkHomePage from "../../components/LinkHomePage";
-
+import AnimatedNumber from "../../components/Animation/AnimateText";
+import LinkHomePage from "../../components/navbar/LinkHomePage";
 import ProductsTable from "./tableData/ProductsTable";
 import OrdersTable from "./tableData/OrdersTable";
 import UsersTable from "./tableData/UsersTable";

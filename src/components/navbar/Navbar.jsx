@@ -62,19 +62,6 @@ function Navbar() {
 
 	return (
 		<header className="flex flex-col sticky top-0 z-10">
-			<ToastContainer
-				position="bottom-center"
-				autoClose={1000}
-				hideProgressBar={false}
-				newestOnTop={false}
-				closeOnClick
-				rtl={false}
-				draggable
-				theme="colored"
-			/>
-
-			{/*---------------------------------------------------------------*/}
-
 			{/*FIRST ROW*/}
 			<nav className="bg-[#131921] flex items-center justify-between px-4 py-3 gap-3  text-white ">
 				<Link

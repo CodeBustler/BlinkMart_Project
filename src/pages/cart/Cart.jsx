@@ -3,14 +3,17 @@ import { MyContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteFromCart } from "../../redux/cartSlice";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import { toast } from "react-toastify";
 
 function Cart() {
 	const cartItems = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
 	console.log(cartItems);
 	const { userName, admin } = useContext(MyContext);
+	const toastRed = () => toast.dismiss("Item Removed! ");
 
 	const deleteItem = (item) => {
+		toastRed();
 		dispatch(deleteFromCart(item));
 	};
 	return (
@@ -20,9 +23,12 @@ function Cart() {
 			</h1>
 			<div className="flex gap-10 mt-5">
 				<div className="flex flex-col gap-5 md:w-[70%]">
-					{cartItems.map((item) => {
+					{cartItems.map((item, index) => {
 						return (
-							<div className="flex gap-5 p-4 border rounded-xl ">
+							<div
+								className="flex gap-5 p-4 border rounded-xl "
+								key={index}
+							>
 								<img
 									src={item.img1}
 									alt="product_image"

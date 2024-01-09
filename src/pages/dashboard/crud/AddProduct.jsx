@@ -3,7 +3,7 @@ import { MyContext } from "../../../App";
 import { Link } from "react-router-dom";
 import { RiShoppingCartFill } from "react-icons/ri";
 import { IoMdSad } from "react-icons/io";
-import LinkHomePage from "../../../components/LinkHomePage";
+import LinkHomePage from "../../../components/navbar/LinkHomePage";
 
 function AddProduct() {
 	const context = useContext(MyContext);
