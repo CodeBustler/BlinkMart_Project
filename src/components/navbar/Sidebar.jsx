@@ -111,7 +111,7 @@ function Sidebar({
 									Tablets
 								</NavLink>
 								<NavLink
-									to="/products/wearable_devices"
+									to="/products/smart_watches"
 									onClick={handleSideBar}
 								>
 									Smart Watches
@@ -143,10 +143,10 @@ function Sidebar({
 									Shoes & Sneakers
 								</NavLink>
 								<NavLink
-									to="/products/jackets"
+									to="/products/mens_jackets"
 									onClick={handleSideBar}
 								>
-									Leather Jackets
+									Mens Jackets
 								</NavLink>
 							</ul>
 						</div>

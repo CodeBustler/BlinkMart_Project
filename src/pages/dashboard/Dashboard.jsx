@@ -19,7 +19,7 @@ import { FaListUl } from "react-icons/fa";
 
 function Dashboard() {
 	const [selectedButton, setSelectedButton] = useState("products");
-	const { admin } = useContext(MyContext);
+	const { admin, allProducts } = useContext(MyContext);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -53,8 +53,8 @@ function Dashboard() {
 								<BsFillBoxSeamFill className="text-5xl text-purple-400" />
 								<div className="font-bold text-2xl text-gray-600">
 									<AnimatedNumber
-										target={851}
-										duration={3000}
+										target={allProducts.length}
+										duration={2000}
 									/>
 								</div>
 								<div className="font-semibold text-lg  text-gray-500">

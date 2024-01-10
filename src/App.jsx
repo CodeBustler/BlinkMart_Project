@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const MyContext = createContext();
 
 function App() {
-  const [products, setProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
   const [userName, setUserName] = useState(null);
   const [loading, setLoading] = useState(false);
   const [admin, setAdmin] = useState(true);
@@ -75,7 +75,7 @@ function App() {
       return;
     }
     try {
-      const docRef = await addDoc(collection(fireDB, "products"), product);
+      const docRef = await addDoc(collection(fireDB, "allProducts"), product);
       console.log("Product added to DB", docRef.id);
       toastSuccess();
     } catch (e) {
@@ -89,20 +89,20 @@ function App() {
   // GET PRODUCTS
   const fetchProducts = async () => {
     setLoading(true);
-    const data = await getDocs(collection(fireDB, "products"));
+    const data = await getDocs(collection(fireDB, "allProducts"));
     const productData = [];
     data.forEach((doc) => {
       productData.push({ ...doc.data(), id: doc.id });
     });
     setLoading(false);
-    setProducts(productData);
+    setAllProducts(productData);
   };
 
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  console.log(products);
+  console.log(allProducts);
   //---------------------------------------------------------------------
   //  Number With Commans
   function numberWithCommas(x) {
@@ -134,20 +134,15 @@ function App() {
   //-------------------------------------------------------
   // FUNCTION TO FILTER
   const fitlerByCategory = (category) => {
-    return products.filter((products) => products.category === category);
+    return allProducts.filter((products) => products.category === category);
   };
 
   const fitlerBySubCategory = (subCategory) => {
-    return products.filter((products) => products.subCategory === subCategory);
+    return allProducts.filter(
+      (products) => products.subCategory === subCategory,
+    );
   };
 
-  const electronicAndDevices = fitlerByCategory("1");
-  const mobiles = fitlerBySubCategory("1.1");
-  mobiles.reverse();
-  const laptops = fitlerBySubCategory("1.2");
-  const tablets = fitlerBySubCategory("1.3");
-  const smartWatches = fitlerBySubCategory("1.4");
-  const electronics = [mobiles, laptops, tablets, smartWatches];
   //-------------------------------------------------------
 
   return (
@@ -158,8 +153,8 @@ function App() {
         setUserName,
         admin,
         setAdmin,
-        products,
-        setProducts,
+        allProducts,
+        setAllProducts,
         errorMsg,
         setErrorMsg,
         product,
@@ -168,7 +163,6 @@ function App() {
         handleReset,
         loading,
         setLoading,
-        electronics,
         numberWithCommas,
       }}
     >

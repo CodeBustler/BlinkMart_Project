@@ -17,44 +17,44 @@ function AddProduct() {
 
 	//---------------------------------------------------------------------
 	const categoryOptions = [
-		{ value: "1", label: "Electronics & Devices" },
-		{ value: "2", label: "Men's Fashion" },
-		{ value: "3", label: "Women's Fashion" },
-		{ value: "4", label: "Kid's Fashion" },
-		{ value: "5", label: "Jewellery" },
-		{ value: "6", label: "Books" },
+		{ value: "electronics_and_devices", label: "Electronics & Devices" },
+		{ value: "mens_fashion", label: "Men's Fashion" },
+		{ value: "womens_fashion", label: "Women's Fashion" },
+		{ value: "kids_fashion", label: "Kid's Fashion" },
+		{ value: "jewellery", label: "Jewellery" },
+		{ value: "books", label: "Books" },
 	];
 
 	const subCategoryOptions = {
-		1: [
-			{ value: "1.1", label: "Mobiles" },
-			{ value: "1.2", label: "Laptops" },
-			{ value: "1.3", label: "Tablets" },
-			{ value: "1.4", label: "Smart Watches" },
+		electronics_and_devices: [
+			{ value: "laptops", label: "Laptops" },
+			{ value: "mobiles", label: "Mobiles" },
+			{ value: "tablets", label: "Tablets" },
+			{ value: "smart_watches", label: "Smart Watches" },
 		],
-		2: [
-			{ value: "2.1", label: "Shirts & T-Shirts" },
-			{ value: "2.2", label: "Shoes & Sneakers" },
-			{ value: "2.3", label: "Leather Jackets" },
+		mens_fashion: [
+			{ value: "mens_shirts", label: "Shirts & T-Shirts" },
+			{ value: "mens_footwear", label: "Shoes & Sneakers" },
+			{ value: "mens_jackets", label: "Jackets" },
 		],
-		3: [
-			{ value: "3.1", label: "Dresses" },
-			{ value: "3.2", label: "Top Western" },
-			{ value: "3.3", label: "Footwear" },
+		womens_fashion: [
+			{ value: "womens_dresses", label: "Dresses" },
+			{ value: "womens_tops", label: "Top Western" },
+			{ value: "womens_footwear", label: "Footwear" },
 		],
-		4: [
-			{ value: "4.1", label: "Kids Cloth" },
-			{ value: "4.2", label: "Kids Footwear" },
+		kids_fashion: [
+			{ value: "kids_cloth", label: "Kids Cloth" },
+			{ value: "kids_footwear", label: "Kids Footwear" },
 		],
-		5: [
-			{ value: "5.1", label: "Gold" },
-			{ value: "5.2", label: "Silver" },
-			{ value: "5.3", label: "Platinum" },
+		jewellery: [
+			{ value: "jewellery_gold", label: "Gold" },
+			{ value: "jewellery_silver", label: "Silver" },
+			{ value: "jewellery_platinum", label: "Platinum" },
 		],
-		6: [
-			{ value: "6.1", label: "Comics" },
-			{ value: "6.2", label: "Devotional" },
-			{ value: "6.3", label: "Programming" },
+		books: [
+			{ value: "books_comics", label: "Comics" },
+			{ value: "books_devotional", label: "Devotional" },
+			{ value: "books_programming", label: "Programming" },
 		],
 	};
 
@@ -63,7 +63,6 @@ function AddProduct() {
 		setProduct((prev) => ({
 			...prev,
 			category: selectedCategory,
-			// Reset subCategory when category changes
 			subCategory: "",
 		}));
 	};

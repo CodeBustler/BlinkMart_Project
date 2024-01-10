@@ -1,17 +1,33 @@
-import React, { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MyContext } from "../../App";
-import Loader from "../Animation/Loader";
-import { useNavigate } from "react-router-dom";
+// ROUTER
+import { useNavigate, useParams } from "react-router-dom";
+// REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, deleteFromCart } from "../../redux/cartSlice";
+// COMPONENTS
+import Loader from "../Animation/Loader";
 import ProductCard from "../Card/ProductCard";
 import CardContainer from "../Card/CardContainer";
 
+//---------------------------------------------------------------
+
 function Products() {
-	const { products, loading, numberWithCommas, electronics } =
-		useContext(MyContext);
+	const { loading, numberWithCommas, allProducts } = useContext(MyContext);
+	const [categoryArray, setCategoryArray] = useState([]);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const { mainCategory } = useParams();
+	console.log(mainCategory);
+	console.log(allProducts);
+
+	const mainCategoryFilter = allProducts.filter(
+		(item) => item.category === mainCategory,
+	);
+
+	console.log(mainCategoryFilter);
+
+	//---------------------------------------------------------------
 
 	return (
 		<>
@@ -19,19 +35,16 @@ function Products() {
 				<Loader />
 			) : (
 				<>
-					{}
-					{electronics.map((category, categoryIndex) => (
+					{mainCategoryFilter.map((category, categoryIndex) => (
 						<CardContainer
 							key={categoryIndex}
-							categoryTitle={category[0].subCategory}
+							categoryTitle={category.subCategory}
 						>
-							{category.slice(1).map((item, index) => (
-								<ProductCard
-									key={index}
-									item={item}
-									numberWithCommas={numberWithCommas}
-								/>
-							))}
+							<ProductCard
+								key={categoryIndex}
+								item={category}
+								numberWithCommas={numberWithCommas}
+							/>
 						</CardContainer>
 					))}
 				</>

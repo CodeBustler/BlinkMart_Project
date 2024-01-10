@@ -7,7 +7,7 @@ import { addToCart, deleteFromCart } from "../../redux/cartSlice";
 import ProductCard from "../../components/Card/ProductCard";
 
 function Homepage() {
-	const { products, loading, numberWithCommas } = useContext(MyContext);
+	const { allProducts, loading, numberWithCommas } = useContext(MyContext);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const cartItem = useSelector((state) => state.cart);
@@ -28,7 +28,7 @@ function Homepage() {
 				<div className="container mx-auto">
 					<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
 						{/*MAPPING PRODUCTS*/}
-						{products.map((item, index) => (
+						{allProducts.map((item, index) => (
 							<ProductCard
 								key={index}
 								item={item}
