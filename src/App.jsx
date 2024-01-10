@@ -1,7 +1,7 @@
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router/routes";
 import React, { useEffect, useState, createContext } from "react";
-import { auth, fireDB } from "./firebase";
+import { auth, fireDB } from "./firebase/firebase";
 import { Timestamp } from "firebase/firestore";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { toast } from "react-toastify";
@@ -14,7 +14,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [admin, setAdmin] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
-  const [scrollLeft, setScrollLeft] = useState(0);
   const [product, setProduct] = useState({
     title: "",
     brand: "",
@@ -45,7 +44,10 @@ function App() {
     };
     const unsubscribeAuthStateChanged = auth.onAuthStateChanged(updateUserName);
 
-    return () => unsubscribeAuthStateChanged();
+    return () => {
+      unsubscribeAuthStateChanged();
+      setAdmin(false);
+    };
   }, []);
 
   //-------------------------------------------------------
@@ -74,7 +76,7 @@ function App() {
     }
     try {
       const docRef = await addDoc(collection(fireDB, "products"), product);
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Product added to DB", docRef.id);
       toastSuccess();
     } catch (e) {
       console.error("Error adding document: ", e);

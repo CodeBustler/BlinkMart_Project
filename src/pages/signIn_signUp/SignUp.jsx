@@ -1,12 +1,17 @@
+import { useState } from "react";
+// ROUTER
 import { Link, useNavigate } from "react-router-dom";
+// FIREBASE
+import { auth, fireDB } from "../../firebase/firebase";
+import { signOut } from "firebase/auth";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+// ICONS
 import { RiShoppingCartFill } from "react-icons/ri";
 import { IoMdSad } from "react-icons/io";
-import { useState } from "react";
-import { auth, fireDB } from "../../firebase";
-import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
-import { Timestamp, addDoc, collection } from "firebase/firestore";
+
+// ---------------------------------------------------------------
 
 function SignUp() {
 	const [errorMsg, setErrorMsg] = useState("");

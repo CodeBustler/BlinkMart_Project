@@ -1,11 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MyContext } from "../../App";
+// ROUTER
 import { Link, useNavigate } from "react-router-dom";
+// FIREBASE
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
+// ICONS
 import { RiShoppingCartFill } from "react-icons/ri";
 import { IoMdSad } from "react-icons/io";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
 import { toast } from "react-toastify";
-import { MyContext } from "../../App";
+
+// ---------------------------------------------------------------
 
 function Login() {
 	const adminEmail = import.meta.env.VITE_REACT_APP_ADMIN_EMAIL;

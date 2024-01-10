@@ -1,6 +1,10 @@
+// ROUTER
+import { Link } from "react-router-dom";
+// ICONS
 import { RiShoppingCartFill } from "react-icons/ri";
 import { BsFillQuestionOctagonFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+
+// ---------------------------------------------------------------
 
 function NoPage() {
 	return (
@@ -18,7 +22,7 @@ function NoPage() {
 				<BsFillQuestionOctagonFill className="text-3xl md:text-5xl text-orange-500 " />
 				<div className="mt-10">
 					<h2 className="text-lg font-bold text-orange-500">
-						Looking for something?{" "}
+						Looking for something?
 					</h2>
 					<p className="text-lg">
 						We're sorry. The Web address you entered is not a

@@ -1,8 +1,11 @@
-import React from "react";
+// ROUTER
 import { Link } from "react-router-dom";
+// ICONS
 import { RiShoppingCartFill } from "react-icons/ri";
 
-function LinkHomePage() {
+// ---------------------------------------------------------------
+
+function OnlyHomePageNavbar() {
 	return (
 		<nav className="bg-[#131921] flex items-center justify-between px-4 py-4 gap-3  text-white ">
 			<Link
@@ -16,4 +19,4 @@ function LinkHomePage() {
 	);
 }
 
-export default LinkHomePage;
+export default OnlyHomePageNavbar;

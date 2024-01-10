@@ -4,8 +4,8 @@ import Loader from "../Animation/Loader";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, deleteFromCart } from "../../redux/cartSlice";
-import ProductCard from "../ProductCard/ProductCard";
-import CardContainer from "../CardContainer/CardContainer";
+import ProductCard from "../Card/ProductCard";
+import CardContainer from "../Card/CardContainer";
 
 function Products() {
 	const { products, loading, numberWithCommas, electronics } =

@@ -4,15 +4,13 @@ import Loader from "../../components/Animation/Loader";
 import { MyContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, deleteFromCart } from "../../redux/cartSlice";
-import ProductCard from "../../components/ProductCard/ProductCard";
+import ProductCard from "../../components/Card/ProductCard";
 
 function Homepage() {
 	const { products, loading, numberWithCommas } = useContext(MyContext);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const cartItem = useSelector((state) => state.cart);
-
-	console.log(cartItem);
 
 	const addCart = (item) => {
 		const user = localStorage.getItem("user");

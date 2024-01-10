@@ -1,17 +1,21 @@
-import { Link } from "react-router-dom";
-import { MyContext } from "../../App";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { MyContext } from "../../App";
+// COMPONENTS
+import AnimatedNumber from "../../components/Animation/AnimateText";
+import OnlyHomePageNavbar from "../../components/navbar/OnlyHomePageNavbar";
+import ProductsTable from "./tableData/ProductsTable";
+import OrdersTable from "./tableData/OrdersTable";
+import UsersTable from "./tableData/UsersTable";
+// ROUTER
+import { Link, useNavigate } from "react-router-dom";
+// ICONS
 import { BsFillBoxSeamFill } from "react-icons/bs";
 import { RiEBike2Fill, RiShoppingCartFill } from "react-icons/ri";
 import { PiUsersThreeFill } from "react-icons/pi";
 import { PiKeyReturnFill } from "react-icons/pi";
 import { FaListUl } from "react-icons/fa";
-import AnimatedNumber from "../../components/Animation/AnimateText";
-import LinkHomePage from "../../components/navbar/LinkHomePage";
-import ProductsTable from "./tableData/ProductsTable";
-import OrdersTable from "./tableData/OrdersTable";
-import UsersTable from "./tableData/UsersTable";
+
+// ---------------------------------------------------------------
 
 function Dashboard() {
 	const [selectedButton, setSelectedButton] = useState("products");
@@ -19,7 +23,7 @@ function Dashboard() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		!admin && (navigate("/login"), navigate(0));
+		!admin && navigate("/login");
 	});
 
 	const renderComponents = () => {
@@ -34,9 +38,10 @@ function Dashboard() {
 				return null;
 		}
 	};
+
 	return (
 		<>
-			<LinkHomePage />
+			<OnlyHomePageNavbar />
 			{admin ? (
 				<div className="m-5">
 					<h1 className="text-2xl font-bold my-3 text-center md:text-left">

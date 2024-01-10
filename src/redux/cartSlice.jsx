@@ -1,10 +1,14 @@
+// REDUX
 import { createSlice } from "@reduxjs/toolkit";
+// TOASTIFY
 import { toast } from "react-toastify";
 
-// TOASTIFY
+// ---------------------------------------------------------------
+
 const toastGreen = () => toast.success("Added To Cart !");
 const toastRed = () => toast.error("Item Removed ! ");
 
+// REDUX SLICE/REDUCERS
 const initialState = [];
 const cartSlice = createSlice({
 	name: "cart",
@@ -26,5 +30,6 @@ const cartSlice = createSlice({
 	},
 });
 
+// EXPORTS
 export const { addToCart, deleteFromCart } = cartSlice.actions;
 export default cartSlice.reducer;

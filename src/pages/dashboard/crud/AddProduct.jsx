@@ -1,9 +1,14 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { MyContext } from "../../../App";
+// ROUTER
 import { Link } from "react-router-dom";
+// ICONS
 import { RiShoppingCartFill } from "react-icons/ri";
 import { IoMdSad } from "react-icons/io";
-import LinkHomePage from "../../../components/navbar/LinkHomePage";
+// COMPONENTS
+import OnlyHomePageNavbar from "../../../components/navbar/OnlyHomePageNavbar";
+
+// ---------------------------------------------------------------
 
 function AddProduct() {
 	const context = useContext(MyContext);
@@ -75,7 +80,7 @@ function AddProduct() {
 
 	return (
 		<>
-			<LinkHomePage />
+			<OnlyHomePageNavbar />
 			<div className="flex flex-col items-center ">
 				<form className="flex flex-col md:border px-4 pb-7 md:pt-3 md:px-7  md:mt-8 rounded-lg md:shadow-2xl gap-2 lg:w-[80%]">
 					<h1 className="font-semibold text-2xl my-4 text-gray-600">

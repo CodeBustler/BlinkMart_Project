@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+// COMPONENTS & PAGES
 import Cart from "../pages/cart/Cart";
 import Products from "../components/products/Products";
 import ProductDetail from "../pages/productDetail/ProductDetail";
@@ -7,6 +9,8 @@ import Dashboard from "../pages/dashboard/Dashboard";
 import CustomerService from "../pages/customerService/CustomerService";
 import SignUp from "../pages/signIn_signUp/SignUp";
 import Login from "../pages/signIn_signUp/Login";
+import AddProduct from "../pages/dashboard/crud/AddProduct";
+// ROUTER
 import RootLayout from "./RootLayout";
 import {
 	Navigate,
@@ -14,8 +18,6 @@ import {
 	createRoutesFromElements,
 	Route,
 } from "react-router-dom";
-import AddProduct from "../pages/dashboard/crud/AddProduct";
-import { useEffect } from "react";
 
 // ---------------------------------------------------------------
 
@@ -34,10 +36,9 @@ const env = import.meta.env;
 const adminEmail = env.VITE_REACT_APP_ADMIN_EMAIL;
 
 const ProtectedRouteForAdmin = ({ children }) => {
-	const admin = JSON.parse(localStorage.getItem("user"));
+	const userData = JSON.parse(localStorage.getItem("user"));
 
-	// CHECK IF THE USER IS AN ADMIN
-	if (admin.user.email === adminEmail) {
+	if (userData && userData.user && userData.user.email === adminEmail) {
 		return children;
 	} else {
 		return <Navigate to={"/login"} />;
@@ -81,4 +82,5 @@ const router = createBrowserRouter(
 	),
 );
 
+// EXPORTS
 export { router };
