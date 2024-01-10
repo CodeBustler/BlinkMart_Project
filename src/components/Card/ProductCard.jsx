@@ -22,12 +22,12 @@ const ProductCard = ({ item, numberWithCommas }) => {
 	};
 
 	return (
-		<div className="border border-gray-300 rounded-md p-5 transition bg-white  flex flex-col justify-between flex-shrink-0 h-[350px] md:w-[240px] hover:border-gray-400 hover:shadow-xl transition">
+		<div className="border border-gray-300 rounded-md p-5 transition bg-white  flex flex-col justify-between flex-shrink-0 h-[320px] md:w-[240px] hover:border-gray-400 hover:shadow-xl transition">
 			{/* PRODUCT IMAGE */}
 			<img
 				src={item?.img1 || no_image}
 				alt="product-image"
-				className="object-contain w-[100%] h-[50%] cursor-pointer transition hover:scale-105 block"
+				className="object-contain w-[100%] h-[60%] cursor-pointer transition hover:scale-105 block"
 				onClick={() => navigate(`/ProductDetail/${item.id}`)}
 			/>
 			{/* PRODUCT DETAILS */}
@@ -38,7 +38,7 @@ const ProductCard = ({ item, numberWithCommas }) => {
 				<h2 className="font-bold hover:underline cursor-default">
 					{item.title}
 				</h2>
-				<small>{item.subCategory}</small>
+				{/*<small>{item.subCategory}</small>*/}
 
 				<button
 					className="bg-orange-500 w-full py-1 mt-2 rounded active:bg-orange-400 transition"
