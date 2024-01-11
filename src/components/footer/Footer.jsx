@@ -8,11 +8,24 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import { IoChatbubbles } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { RiShoppingCartFill } from "react-icons/ri";
+import { FaAnglesLeft } from "react-icons/fa6";
+import { useRef } from "react";
 
 function Footer() {
+	const scrollToTop = () => {
+		window.scrollTo(0, 0);
+	};
 	return (
 		<footer className="mt-10">
 			{/*FOOTER LINKS*/}
+
+			<button
+				className="w-full bg-[#131A22] text-white py-2 text-center flex items-center gap-2 justify-center cursor-pointer"
+				onClick={scrollToTop}
+			>
+				Tap to top
+				<FaAnglesLeft className="rotate-90" />
+			</button>
 			<div className=" bg-[#232F3E] text-white p-2  lg:p-7">
 				<div className="container  m-auto ">
 					<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 lg:gap-10 md:gap-5">

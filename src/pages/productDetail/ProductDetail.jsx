@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { MyContext } from "../../App";
 // ICONS
 import { MdStarBorder } from "react-icons/md";
@@ -8,6 +8,8 @@ import { RiMotorbikeFill } from "react-icons/ri";
 import { AiOutlineTrophy } from "react-icons/ai";
 import { GrSecure } from "react-icons/gr";
 import { GoPlus } from "react-icons/go";
+import { FaAngleLeft } from "react-icons/fa";
+
 import { toast } from "react-toastify";
 // ROUTER
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -29,6 +31,8 @@ function ProductDetail() {
 	const [reletedProducts, setRelatedProduct] = useState([]);
 
 	const toastInfo = () => toast.info("Log in to add items to your cart");
+
+	const containerRef = useRef(null);
 
 	const addCart = (item) => {
 		const user = localStorage.getItem("user");
@@ -60,6 +64,19 @@ function ProductDetail() {
 	function changeProductImage(e, image) {
 		setMainImage(image);
 	}
+
+	const scrollLeft = () => {
+		if (containerRef.current) {
+			containerRef.current.scrollLeft -= 200; // Adjust the scroll amount as needed
+		}
+	};
+
+	const scrollRight = () => {
+		if (containerRef.current) {
+			containerRef.current.scrollLeft += 200; // Adjust the scroll amount as needed
+		}
+	};
+
 	// --------------------------------------------------------------
 	return (
 		<>
@@ -114,7 +131,7 @@ function ProductDetail() {
 						<img
 							src={mainImage}
 							alt="product-image"
-							className="object-contain w-full h-[280px] md:h-[300px] lg:h-[500px] hover:scale-125 transition"
+							className="object-contain w-full h-[280px] md:h-[300px] lg:h-[500px] hover:scale-125 transition "
 						/>
 					</div>
 				</div>
@@ -122,7 +139,9 @@ function ProductDetail() {
 				{/*RIGHT CONTAINER*/}
 				<div className="px-6 max-w-[600px] ">
 					<p className="text-md pt-3 text-gray-400 capitalize">
-						{displayProduct?.category?.replace(/_/g, " ") || ""}
+						{displayProduct?.category?.replace(/_/g, " ") || ""} /
+						&nbsp;
+						{displayProduct?.subCategory?.replace(/_/g, " ") || ""}
 					</p>
 					<h2 className="font-bold text-2xl pt-2">
 						{displayProduct.title}
@@ -154,7 +173,7 @@ function ProductDetail() {
 					>
 						{displayProduct?.description?.slice(0, 400)}....
 					</p>
-					<div className="flex items-center justify-between gap-10 my-3 mt-4">
+					<div className="flex flex-col md:flex-row items-center justify-between gap-5 my-3 mt-4">
 						<div className="flex items-center gap-3">
 							<div className="font-bold py-3 text-2xl">
 								₹
@@ -167,7 +186,7 @@ function ProductDetail() {
 							</div>
 						</div>
 						<button
-							className="bg-orange-500  active:bg-orange-400 w-[40%] rounded-md py-2 mt-1 font-semibold cursor-pointer"
+							className="bg-orange-500  active:bg-orange-400 w-[100%] md:w-[40%] rounded-md py-2 mt-1 font-semibold cursor-pointer"
 							onClick={() => addCart(displayProduct)}
 						>
 							<GoPlus className="inline mb-1 mr-2" />
@@ -204,15 +223,42 @@ function ProductDetail() {
 					</div>
 				</div>
 			</div>
-			{/*<div className="flex gap-2">
-				{filterCategory.map((category, categoryIndex) => (
-					<ProductCard
-						key={categoryIndex}
-						item={category}
-						numberWithCommas={numberWithCommas}
-					/>
-				))}
-			</div>*/}
+
+			<div className="flex flex-col gap-10 md:mx-8 mt-10 ">
+				<div className="font-bold text-2xl pt-2 underline underline-offset-8 under">
+					Related Products
+				</div>
+				{/*CONTAINER*/}
+				<div className="relative">
+					<div
+						className="flex flex-col md:flex-row gap-10 bg-gray-100 p-8 rounded-xl border overflow-x-auto scroll-smooth"
+						ref={containerRef}
+					>
+						{filterCategory.map((category, categoryIndex) => (
+							<ProductCard
+								key={categoryIndex}
+								item={category}
+								numberWithCommas={numberWithCommas}
+							/>
+						))}
+					</div>
+					{filterCategory.length > 4 ? (
+						<div>
+							<FaAngleLeft
+								onClick={scrollLeft}
+								className="absolute top-[25%] -left-10 border border-2 text-[32px]  px-2 h-[200px] text-gray-600 bg-gray-100 active:bg-gray-200 rounded-md hidden md:block cursor-pointer"
+							/>
+
+							<FaAngleLeft
+								onClick={scrollRight}
+								className="absolute -right-10 top-[25%] rotate-180 border border-2 text-[32px] px-2 h-[200px] text-gray-600 bg-gray-100 active:bg-gray-200 rounded-md hidden md:block cursor-pointer"
+							/>
+						</div>
+					) : (
+						""
+					)}
+				</div>
+			</div>
 		</>
 	);
 }

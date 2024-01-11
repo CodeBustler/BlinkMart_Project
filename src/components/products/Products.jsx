@@ -35,7 +35,7 @@ function Products() {
 				<Loader />
 			) : (
 				<>
-					<h1 className="font-bold text-2xl capitalize text-center md:text-left">
+					<h1 className="font-bold text-2xl capitalize text-center md:text-left underline underline-offset-4">
 						{mainCategory.replace(/_/g, " ").replace(/and/g, "&")}
 					</h1>
 					{mainCategoryFilter.map((category, categoryIndex) => (

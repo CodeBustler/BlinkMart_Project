@@ -4,8 +4,15 @@
 
 /* MORE CSS --------------------------------------- */
 
+html {
+	scroll-behavior: smooth;
+}
 /*ACTIVE LINK STYLE*/
 .active {
 	color: orange;
 	font-weight: 500;
+}
+
+.underline {
+	text-decoration-color: orange;
 }
