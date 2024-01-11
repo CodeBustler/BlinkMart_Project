@@ -20,11 +20,11 @@ function Footer() {
 			{/*FOOTER LINKS*/}
 
 			<button
-				className="w-full bg-[#131A22] text-white py-2 text-center flex items-center gap-2 justify-center cursor-pointer"
+				className="w-full bg-[#131A22]  py-2 text-center flex items-center gap-2 justify-center cursor-pointer text-gray-400"
 				onClick={scrollToTop}
 			>
 				Tap to top
-				<FaAnglesLeft className="rotate-90 text-gray-400" />
+				<FaAnglesLeft className="rotate-90 " />
 			</button>
 			<div className=" bg-[#232F3E] text-white p-2  lg:p-7">
 				<div className="container  m-auto ">

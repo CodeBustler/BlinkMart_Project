@@ -36,6 +36,10 @@ function App() {
     }),
   });
   const toastSuccess = () => toast.success("Product Added To Database !");
+
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
   //-------------------------------------------------------
   // UPDATE USERNAME ON AUTH STATE CHANGE
   useEffect(() => {
@@ -108,6 +112,7 @@ function App() {
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+
   //---------------------------------------------------------------------
 
   // HANDLE RESET BUTTON
@@ -164,6 +169,7 @@ function App() {
         loading,
         setLoading,
         numberWithCommas,
+        scrollToTop,
       }}
     >
       <RouterProvider router={router} />

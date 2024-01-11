@@ -13,7 +13,8 @@ import CardContainer from "../Card/CardContainer";
 //---------------------------------------------------------------
 
 function Products() {
-	const { loading, numberWithCommas, allProducts } = useContext(MyContext);
+	const { loading, numberWithCommas, allProducts, scrollToTop } =
+		useContext(MyContext);
 	const [categoryArray, setCategoryArray] = useState([]);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -27,6 +28,9 @@ function Products() {
 
 	console.log(mainCategoryFilter);
 
+	useEffect(() => {
+		scrollToTop();
+	}, [mainCategoryFilter]);
 	//---------------------------------------------------------------
 
 	return (
