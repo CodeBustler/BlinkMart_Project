@@ -38,7 +38,6 @@ const ProductCard = ({ item, numberWithCommas }) => {
 				<h2 className="font-bold hover:underline cursor-default">
 					{item.title}
 				</h2>
-				{/*<small>{item.subCategory}</small>*/}
 
 				<button
 					className="bg-orange-500 w-full py-1 mt-2 rounded active:bg-orange-400 transition"
