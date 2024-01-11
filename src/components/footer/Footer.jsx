@@ -24,7 +24,7 @@ function Footer() {
 				onClick={scrollToTop}
 			>
 				Tap to top
-				<FaAnglesLeft className="rotate-90" />
+				<FaAnglesLeft className="rotate-90 text-gray-400" />
 			</button>
 			<div className=" bg-[#232F3E] text-white p-2  lg:p-7">
 				<div className="container  m-auto ">
