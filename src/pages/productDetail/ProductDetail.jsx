@@ -264,7 +264,7 @@ function ProductDetail() {
 							/>
 						))}
 					</div>
-					{filterCategory.length > 4 ? (
+					{filterCategory.length >= 2 ? (
 						<div>
 							<FaAngleLeft
 								onClick={scrollLeft}
