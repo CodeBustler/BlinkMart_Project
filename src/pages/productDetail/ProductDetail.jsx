@@ -78,6 +78,24 @@ function ProductDetail() {
 		}
 	};
 
+	const calculateDiscountPercentage = () => {
+		if (
+			displayProduct &&
+			displayProduct.price &&
+			displayProduct.actualPrice
+		) {
+			const price = parseFloat(displayProduct.price);
+			const actualPrice = parseFloat(displayProduct.actualPrice);
+
+			const discount = ((actualPrice - price) / actualPrice) * 100;
+
+			return discount.toFixed(0); // You can adjust the number of decimal places as needed
+		}
+		return "";
+	};
+
+	const discountPercentage = calculateDiscountPercentage();
+
 	// --------------------------------------------------------------
 	return (
 		<>
@@ -175,19 +193,22 @@ function ProductDetail() {
 						{displayProduct?.description?.slice(0, 400)}....
 					</p>
 					<div className="flex flex-col md:flex-row items-center justify-between gap-5 my-3 mt-4">
-						<div className="flex items-center gap-3">
+						<div className="flex flex-wrap items-center gap-5 md:gap-2 lg:gap-5">
 							<div className="font-bold py-3 text-2xl">
 								₹
 								{displayProduct.price
 									? numberWithCommas(displayProduct.price)
 									: ""}
 							</div>
-							<div className="line-through mt-2 text-md text-gray-500">
+							<div className="line-through mt-2 text-gray-500">
 								₹ {displayProduct.actualPrice}
+							</div>
+							<div className="text-md text-red-500 text-lg font-semibold mt-2">
+								{discountPercentage}% Off
 							</div>
 						</div>
 						<button
-							className="bg-orange-500  active:bg-orange-400 w-[100%] md:w-[40%] rounded-md py-2 mt-1 font-semibold cursor-pointer "
+							className="bg-orange-500  active:bg-orange-400 min-w-[200px] w-[100%] md:w-[40%] rounded-md py-2 mt-1 font-semibold cursor-pointer  "
 							onClick={() => addCart(displayProduct)}
 						>
 							<GoPlus className="inline mb-1 mr-2" />
