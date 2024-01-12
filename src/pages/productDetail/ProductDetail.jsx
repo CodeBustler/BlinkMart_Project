@@ -25,7 +25,7 @@ function ProductDetail() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const context = useContext(MyContext);
-	const { allProducts, numberWithCommas } = context;
+	const { allProducts, numberWithCommas, handleCartAnimate } = context;
 	const [displayProduct, setDisplayProduct] = useState([]);
 	const [mainImage, setMainImage] = useState("");
 	const [reletedProducts, setRelatedProduct] = useState([]);
@@ -38,6 +38,7 @@ function ProductDetail() {
 		const user = localStorage.getItem("user");
 		if (user) {
 			dispatch(addToCart(item));
+			handleCartAnimate();
 		} else {
 			navigate("/login");
 			toastInfo();
@@ -186,7 +187,7 @@ function ProductDetail() {
 							</div>
 						</div>
 						<button
-							className="bg-orange-500  active:bg-orange-400 w-[100%] md:w-[40%] rounded-md py-2 mt-1 font-semibold cursor-pointer"
+							className="bg-orange-500  active:bg-orange-400 w-[100%] md:w-[40%] rounded-md py-2 mt-1 font-semibold cursor-pointer "
 							onClick={() => addCart(displayProduct)}
 						>
 							<GoPlus className="inline mb-1 mr-2" />

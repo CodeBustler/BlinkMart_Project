@@ -20,7 +20,8 @@ function Navbar() {
 	const navigate = useNavigate();
 	const cartItems = useSelector((state) => state.cart);
 
-	const { userName, setUserName, admin, setAdmin } = useContext(MyContext);
+	const { userName, setUserName, admin, setAdmin, cartAnimate } =
+		useContext(MyContext);
 	const toastLogout = () => toast.error("Logout !");
 
 	useEffect(() => {
@@ -58,6 +59,7 @@ function Navbar() {
 				handleSideBar={handleSideBar}
 				admin={admin}
 				cartItems={cartItems}
+				cartAnimate={cartAnimate}
 			/>
 
 			{/* SECOND ROW */}

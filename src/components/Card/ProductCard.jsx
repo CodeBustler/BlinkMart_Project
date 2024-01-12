@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cartSlice";
 import { toast } from "react-toastify";
 import no_image from "../../assets/no_image.png";
+import { MyContext } from "../../App";
 
 const ProductCard = ({ item, numberWithCommas }) => {
-	console.log(item);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const { handleCartAnimate } = useContext(MyContext);
 	const toastInfo = () => toast.info("Log in to add items to your cart");
 
 	const addCart = () => {
 		const user = localStorage.getItem("user");
 		if (user) {
 			dispatch(addToCart(item));
+			handleCartAnimate();
 		} else {
 			navigate("/login");
 			toastInfo();

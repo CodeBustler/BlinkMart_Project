@@ -1,24 +1,36 @@
-import React, { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { MyContext } from "../../App";
+// REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { deleteFromCart } from "../../redux/cartSlice";
+// ROUTER
+import { Link } from "react-router-dom";
+// ICONS
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { FaBagShopping } from "react-icons/fa6";
 import emptyCart from "../../assets/empty_cart.jpg";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+
+//-----------------------------------------------------
 
 function Cart() {
 	const cartItems = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
-	console.log(cartItems);
 	const { userName, admin } = useContext(MyContext);
-	const toastRed = () => toast.dismiss("Item Removed! ");
 
+	// DLETE ITEM FROM CART
 	const deleteItem = (item) => {
 		toastRed();
 		dispatch(deleteFromCart(item));
 	};
+	function toastRed() {
+		toast.dismiss("Item Removed! ");
+	}
+
+	useEffect(() => {
+		console.log("CartItems");
+	}, [cartItems]);
+
 	return (
 		<>
 			{cartItems.length === 0 ? (

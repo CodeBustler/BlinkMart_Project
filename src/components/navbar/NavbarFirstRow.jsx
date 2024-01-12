@@ -6,10 +6,15 @@ import { RiShoppingCartFill } from "react-icons/ri";
 import { BsSearch } from "react-icons/bs";
 import { LuShoppingCart } from "react-icons/lu";
 import flag_icon from "../../assets/flag_icon.png";
+import { useState } from "react";
 
 // ---------------------------------------------------------------
 
-function NavbarFirstRow({ handleSideBar, admin, cartItems }) {
+function NavbarFirstRow({ handleSideBar, admin, cartItems, cartAnimate }) {
+  const handleAnimateCart = () => {
+    console.log("Hello");
+  };
+
   return (
     <nav className="bg-[#131921] flex items-center justify-between px-4 py-3 gap-3  text-white ">
       <Link
@@ -56,7 +61,11 @@ function NavbarFirstRow({ handleSideBar, admin, cartItems }) {
 
         {/* Cart Icon */}
         <NavLink className="flex items-center gap-1" to="/cart">
-          <LuShoppingCart className="text-3xl cursor-pointer " />
+          <LuShoppingCart
+            className={`text-3xl cursor-pointer  ${
+              cartAnimate ? "animate-bounce" : ""
+            }  `}
+          />
           <span className="text-md md:text-lg font-bold text-orange-400">
             {cartItems.length}
           </span>

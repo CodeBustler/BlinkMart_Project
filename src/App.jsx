@@ -14,6 +14,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [admin, setAdmin] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
+  const [cartAnimate, setCartAnimate] = useState(false);
   const [product, setProduct] = useState({
     title: "",
     brand: "",
@@ -113,6 +114,21 @@ function App() {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
+  const handleCartAnimate = () => {
+    setCartAnimate((prevCartAnimate) => {
+      // Toggle the value based on the previous state
+      const newCartAnimate = !prevCartAnimate;
+
+      // Update the state immediately for the initial toggle
+      // and schedule the second toggle after 1000 milliseconds
+      setTimeout(() => {
+        setCartAnimate(!newCartAnimate);
+      }, 1500);
+
+      return newCartAnimate;
+    });
+  };
+
   //---------------------------------------------------------------------
 
   // HANDLE RESET BUTTON
@@ -170,6 +186,8 @@ function App() {
         setLoading,
         numberWithCommas,
         scrollToTop,
+        cartAnimate,
+        handleCartAnimate,
       }}
     >
       <RouterProvider router={router} />
