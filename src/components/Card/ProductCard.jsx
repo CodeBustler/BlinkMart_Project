@@ -28,7 +28,7 @@ const ProductCard = ({ item, numberWithCommas }) => {
 	};
 
 	return (
-		<div className="border border-gray-300 rounded-md p-5 transition bg-white  flex flex-col justify-between flex-shrink-0 h-[320px] md:w-[240px] hover:border-gray-400 hover:shadow-xl transition">
+		<div className="border border-gray-300 rounded-md p-5 transition bg-white  flex flex-col justify-between flex-shrink-0 h-[320px] w-[95%] md:w-[240px] hover:border-gray-400 hover:shadow-xl transition">
 			{/* PRODUCT IMAGE */}
 			<img
 				src={item?.img1 || no_image}

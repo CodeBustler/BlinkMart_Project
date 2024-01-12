@@ -8,7 +8,7 @@ import { addToCart, deleteFromCart } from "../../redux/cartSlice";
 // COMPONENTS
 import Loader from "../Animation/Loader";
 import ProductCard from "../Card/ProductCard";
-import CardContainer from "../Card/CardContainer";
+import ContainerForCard from "../Card/ContainerForCard";
 
 //---------------------------------------------------------------
 
@@ -43,16 +43,17 @@ function Products() {
 						{mainCategory.replace(/_/g, " ").replace(/and/g, "&")}
 					</h1>
 					{mainCategoryFilter.map((category, categoryIndex) => (
-						<CardContainer
+						<ContainerForCard
 							key={categoryIndex}
 							categoryTitle={category.subCategory}
+							filteredCategory={category}
 						>
 							<ProductCard
 								key={categoryIndex}
 								item={category}
 								numberWithCommas={numberWithCommas}
 							/>
-						</CardContainer>
+						</ContainerForCard>
 					))}
 				</>
 			)}

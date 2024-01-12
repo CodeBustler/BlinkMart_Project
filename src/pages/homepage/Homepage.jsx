@@ -26,7 +26,7 @@ function Homepage() {
 				<Loader />
 			) : (
 				<div className="container mx-auto">
-					<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
+					<div className="flex flex-wrap justify-center  gap-5">
 						{/*MAPPING PRODUCTS*/}
 						{allProducts.map((item, index) => (
 							<ProductCard

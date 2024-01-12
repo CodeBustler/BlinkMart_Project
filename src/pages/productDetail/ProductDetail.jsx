@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { MyContext } from "../../App";
+
 // ICONS
 import { MdStarBorder } from "react-icons/md";
 import { MdStar } from "react-icons/md";
@@ -9,13 +10,13 @@ import { AiOutlineTrophy } from "react-icons/ai";
 import { GrSecure } from "react-icons/gr";
 import { GoPlus } from "react-icons/go";
 import { FaAngleLeft } from "react-icons/fa";
-
 import { toast } from "react-toastify";
+
 // ROUTER
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cartSlice";
-import CardContainer from "../../components/Card/CardContainer";
+import ContainerForCard from "../../components/Card/ContainerForCard";
 import ProductCard from "../../components/Card/ProductCard";
 
 //------------------------------------------------------------------
@@ -65,18 +66,6 @@ function ProductDetail() {
 	function changeProductImage(e, image) {
 		setMainImage(image);
 	}
-
-	const scrollLeft = () => {
-		if (containerRef.current) {
-			containerRef.current.scrollLeft -= 200; // Adjust the scroll amount as needed
-		}
-	};
-
-	const scrollRight = () => {
-		if (containerRef.current) {
-			containerRef.current.scrollLeft += 200; // Adjust the scroll amount as needed
-		}
-	};
 
 	const calculateDiscountPercentage = () => {
 		if (
@@ -246,40 +235,19 @@ function ProductDetail() {
 				</div>
 			</div>
 
-			<div className="flex flex-col gap-10 md:mx-8 mt-10 ">
-				<div className="font-bold text-2xl pt-2 underline underline-offset-8 under">
-					Related Products
-				</div>
-				{/*CONTAINER*/}
-				<div className="relative">
-					<div
-						className="flex flex-col md:flex-row gap-10 bg-gray-100 p-8 rounded-xl border overflow-x-auto scroll-smooth"
-						ref={containerRef}
-					>
-						{filterCategory.map((category, categoryIndex) => (
-							<ProductCard
-								key={categoryIndex}
-								item={category}
-								numberWithCommas={numberWithCommas}
-							/>
-						))}
-					</div>
-					{filterCategory.length >= 2 ? (
-						<div>
-							<FaAngleLeft
-								onClick={scrollLeft}
-								className="absolute top-[25%] -left-10 border border-2 text-[32px]  px-2 h-[200px] text-gray-600 bg-gray-100 active:bg-gray-200 rounded-md hidden md:block cursor-pointer"
-							/>
-
-							<FaAngleLeft
-								onClick={scrollRight}
-								className="absolute -right-10 top-[25%] rotate-180 border border-2 text-[32px] px-2 h-[200px] text-gray-600 bg-gray-100 active:bg-gray-200 rounded-md hidden md:block cursor-pointer"
-							/>
-						</div>
-					) : (
-						""
-					)}
-				</div>
+			<div className="mt-10">
+				<ContainerForCard
+					categoryTitle={"Related Products"}
+					filterProducts={filterCategory}
+				>
+					{filterCategory.map((category, categoryIndex) => (
+						<ProductCard
+							key={categoryIndex}
+							item={category}
+							numberWithCommas={numberWithCommas}
+						/>
+					))}
+				</ContainerForCard>
 			</div>
 		</>
 	);
