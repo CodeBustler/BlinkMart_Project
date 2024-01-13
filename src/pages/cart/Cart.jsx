@@ -1,24 +1,43 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MyContext } from "../../App";
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { deleteFromCart } from "../../redux/cartSlice";
 // ROUTER
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // ICONS
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { FaBagShopping } from "react-icons/fa6";
 import emptyCart from "../../assets/empty_cart.jpg";
 import { toast } from "react-toastify";
 import { MdDeleteForever } from "react-icons/md";
+import { FaMinus } from "react-icons/fa6";
+import { FaPlus } from "react-icons/fa";
 
-//-----------------------------------------------------
+//-----------------------------------------------------------------------
 
 function Cart() {
 	const cartItems = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
-	const { userName, admin, numberWithCommas, setCartAnimate } =
+	const navigate = useNavigate();
+	const [productCount, setProductCount] = useState(1);
+	const { userName, admin, numberWithCommas, setCartAnimate, scrollToTop } =
 		useContext(MyContext);
+
+	useEffect(() => {
+		scrollToTop();
+	}, []);
+	//-----------------------------------------------------------------------
+
+	// SUBTOTAL PRICE
+	const cartProductsPrice = cartItems.reduce(
+		(total, item) => total + parseInt(item.price),
+		0,
+	);
+
+	// TOTAL PRICE
+	const totalAmout = cartProductsPrice + 20 + 100;
+	console.log(cartProductsPrice);
 
 	// DLETE ITEM FROM CART
 	const deleteItem = (item) => {
@@ -28,6 +47,16 @@ function Cart() {
 	function toastRed() {
 		toast.dismiss("Item Removed! ");
 	}
+
+	// HANDLE PRODUCT COUNTER
+	const handleProductCountMinus = () => {
+		setProductCount((prevCount) => prevCount - 1);
+	};
+	const handleProductCountPlus = () => {
+		setProductCount((prevCount) => prevCount + 1);
+	};
+	//-----------------------------------------------------------------------
+
 	return (
 		<>
 			{/* FOR EMPTY CART */}
@@ -65,12 +94,19 @@ function Cart() {
 									return (
 										<div
 											key={item.id}
-											className="md:w-[90%] p-5 mb-7 rounded-lg flex flex-col md:flex-row gap-8 relative items-center transition border bg-gray-100 hover:shadow-xl hover:border"
+											className="md:w-[90%] p-5 mb-7 rounded-lg flex flex-col md:flex-row gap-8 relative items-center transition border bg-gray-100 hover:shadow-xl hover:border min-h-[280px] "
 										>
 											<img
 												src={item.img1}
 												alt="product"
-												className="rounded-md cursor-pointer w-[60%] md:w-[150px] object-contain"
+												className="rounded-md cursor-pointer w-[60%] md:w-[150px] object-contain hover:scale-105 transition bg-white mt-5 md:mt-0"
+												title="Tap to know more..."
+												onClick={() => {
+													navigate(
+														`/ProductDetail/${item.id}`,
+													);
+													scrollToTop();
+												}}
 											/>
 											<div className="flex flex-col justify-between ">
 												<div className="">
@@ -82,8 +118,9 @@ function Cart() {
 															0,
 															200,
 														)}
+														...
 													</p>
-													<h3 className="font-semibold text-xl mt-2">
+													<h3 className="font-semibold text-xl mt-3">
 														₹{" "}
 														{item.price
 															? numberWithCommas(
@@ -92,20 +129,30 @@ function Cart() {
 															: ""}
 													</h3>
 												</div>
-												<div className="flex items-center justify-between mt-2">
-													<div className="">
-														<button className="bg-blue-500 w-[25px] rounded-sm  mx-2 text-lg  font-semibold cursor-pointer">
-															-
-														</button>
-														<span className="mx-1 font-semibold text-lg border px-5 rounded border-gray-600">
-															1
-														</span>
-														<button className="bg-blue-500 w-[25px] rounded-sm mx-2 text-lg font-semibold cursor-pointer ">
-															+
-														</button>
+												<div className="flex items-center justify-between mt-7">
+													<div className=" flex items-center justify-center bg-white  border shadow-xl rounded-lg bg-blue-400 text-lg  ">
+														<FaMinus
+															className=" cursor-pointer w-[35px] px-2"
+															onClick={() =>
+																handleProductCountMinus(
+																	item.price,
+																)
+															}
+														/>
+														<div className="px-5 bg-white                                    ">
+															{productCount}
+														</div>
+														<FaPlus
+															className=" cursor-pointer w-[35px] px-3"
+															onClick={() =>
+																handleProductCountPlus(
+																	item.price,
+																)
+															}
+														/>
 													</div>
 													<MdDeleteForever
-														className="text-3xl text-red-500 cursor-pointer hover:scale-150 transition"
+														className="text-4xl text-red-500 cursor-pointer hover:scale-150 transition"
 														onClick={() =>
 															deleteItem(item)
 														}
@@ -118,21 +165,47 @@ function Cart() {
 							</div>
 
 							{/* BILLING */}
-							<div className="border w-full md:w-1/3 p-6 rounded-lg bg-gray-100 shadow-xl hover:shadow-2xl transition">
-								<div className="flex justify-between">
-									<div>Price (2 Items)</div>
-									<div className="font-bold">₹ 2000</div>
+							<div className="border w-full md:w-1/3 p-6 rounded-lg bg-gray-100 shadow-xl hover:shadow-2xl transition mb-12">
+								<div className="flex justify-between text-lg font-semibold">
+									<div>
+										Subtotal ({cartItems.length} Items)
+									</div>
+									<div>
+										₹{" "}
+										{cartProductsPrice
+											? numberWithCommas(
+													cartProductsPrice,
+											  )
+											: ""}
+									</div>
 								</div>
 								<div className="flex justify-between mt-3">
 									<div>Shipping</div>
-									<div className="font-bold">₹ 20</div>
+									<div>₹ 20</div>
 								</div>
 								<div className="flex justify-between mt-3">
 									<div>5% Discount </div>
-									<div className="font-bold">₹ 100</div>
+									<div>₹ 100</div>
 								</div>
-								<button className="rounded-lg text-center w-full mt-7 bg-orange-400 py-2 ">
-									Buy Now
+								<div className="mt-5 text-xl md:text-2xl font-bold flex justify-between">
+									<span>Total Amount :</span>
+									<div>
+										{" "}
+										₹{" "}
+										{totalAmout
+											? numberWithCommas(totalAmout)
+											: ""}
+									</div>
+								</div>
+								<div className="flex items-center mt-5">
+									<input
+										type="checkbox"
+										className=" mr-2 h-5 w-5 cursor-pointer"
+									/>
+									<span>Send as a gift. Custom message </span>
+								</div>
+								<button className="rounded-lg text-center w-full mt-7 bg-orange-400 py-2 font-semibold">
+									Proceed to Buy ({cartItems.length} Items)
 								</button>
 							</div>
 						</div>

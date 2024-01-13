@@ -64,6 +64,7 @@ const ProductCard = ({ item }) => {
 				src={item?.img1 || no_image}
 				alt="product-image"
 				className="object-contain w-[100%] h-[60%] cursor-pointer transition hover:scale-105 block"
+				title="Tap to know more..."
 				onClick={() => {
 					navigate(`/ProductDetail/${item.id}`);
 					scrollToTop();
@@ -71,12 +72,12 @@ const ProductCard = ({ item }) => {
 			/>
 			{/* PRODUCT DETAILS */}
 			<div className="flex flex-col gap-1">
-				<h2 className="font-bold text-xl text-gray-500">
+				<div className="font-bold text-xl text-gray-500">
 					₹ {numberWithCommas(item.price)}
-				</h2>
-				<h2 className="font-bold hover:underline cursor-default">
+				</div>
+				<div className="font-bold hover:underline cursor-default">
 					{item.title}
-				</h2>
+				</div>
 
 				<button
 					className={`bg-orange-400 border  w-full py-1 mt-3 font-semibold rounded  transition ${
