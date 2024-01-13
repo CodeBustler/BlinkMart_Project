@@ -11,7 +11,7 @@ import { GrSecure } from "react-icons/gr";
 import { GoPlus } from "react-icons/go";
 import { FaAngleLeft } from "react-icons/fa";
 import { toast } from "react-toastify";
-
+import tickIcon from "../../assets/tick_icon.png";
 // ROUTER
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -39,6 +39,7 @@ function ProductDetail() {
 		cartItems,
 		setItemInCart,
 	} = context;
+	const toastGreen = () => toast.success("Added To Cart !");
 
 	useEffect(() => {
 		// Check if the item is in the cart
@@ -69,6 +70,7 @@ function ProductDetail() {
 						setLocalItemInCart("In Basket"),
 					),
 				);
+				toastGreen();
 				handleCartAnimate();
 			}
 		} else {
@@ -228,10 +230,25 @@ function ProductDetail() {
 							</div>
 						</div>
 						<button
-							className="bg-orange-400  active:bg-orange-300 min-w-[200px] w-[100%] md:w-[40%] rounded-md py-2 mt-1 font-semibold cursor-pointer  "
+							className={`bg-orange-400 border  border-2  min-w-[200px] w-[100%] md:w-[40%] rounded-md py-2 mt-1 font-semibold cursor-pointer  ${
+								itemInCart === "In Basket"
+									? "bg-white  border-gray-400 "
+									: "bg-orange-400 active:bg-orange-300 border-transparent"
+							} `}
 							onClick={() => addCart(displayProduct)}
 						>
-							{itemInCart}
+							{itemInCart === "In Basket" ? (
+								<div className="flex items-center justify-center gap-3">
+									<img
+										src={tickIcon}
+										alt=""
+										className="w-[20px] md:w-[9%] scale-125"
+									/>
+									{itemInCart}
+								</div>
+							) : (
+								itemInCart
+							)}
 						</button>
 					</div>
 					{/*BENEFITS*/}

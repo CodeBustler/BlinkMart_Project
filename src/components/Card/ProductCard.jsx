@@ -5,6 +5,7 @@ import { addToCart } from "../../redux/cartSlice";
 import { toast } from "react-toastify";
 import no_image from "../../assets/no_image.png";
 import { MyContext } from "../../App";
+import tickIcon from "../../assets/tick_icon.png";
 
 const ProductCard = ({ item }) => {
 	const {
@@ -19,7 +20,7 @@ const ProductCard = ({ item }) => {
 	const dispatch = useDispatch();
 	const [itemInCart, setLocalItemInCart] = useState("Add To Cart");
 	const { handleCartAnimate } = useContext(MyContext);
-	const toastInfo = () => toast.info("Log in to add items to your cart");
+	const toastLogin = () => toast.info("Log in to add items to your cart");
 	const toastGreen = () => toast.success("Added To Cart !");
 
 	useEffect(() => {
@@ -46,12 +47,13 @@ const ProductCard = ({ item }) => {
 
 				dispatch(
 					addToCart(item, () => setLocalItemInCart("In Basket")),
+					toastGreen(),
 				);
 				handleCartAnimate();
 			}
 		} else {
 			navigate("/login");
-			toastInfo();
+			toastLogin();
 		}
 	};
 
@@ -77,10 +79,25 @@ const ProductCard = ({ item }) => {
 				</h2>
 
 				<button
-					className="bg-orange-400 w-full py-1 mt-2 rounded active:bg-orange-300 transition"
+					className={`bg-orange-400 border  w-full py-1 mt-3 font-semibold rounded  transition ${
+						itemInCart === "In Basket"
+							? "bg-white  border-gray-400 "
+							: "bg-orange-400 border-transparent active:bg-orange-300"
+					}`}
 					onClick={addCart}
 				>
-					{itemInCart}
+					{itemInCart === "In Basket" ? (
+						<div className="flex items-center justify-center gap-3">
+							<img
+								src={tickIcon}
+								alt=""
+								className="w-[14px] md:w-[8%] scale-125"
+							/>
+							{itemInCart}
+						</div>
+					) : (
+						itemInCart
+					)}
 				</button>
 			</div>
 		</div>

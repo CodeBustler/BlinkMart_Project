@@ -49,6 +49,7 @@ function Navbar() {
 				setAdmin(false);
 				userName && toastLogout();
 				localStorage.removeItem("user");
+
 				navigate("/login");
 				console.log("Signed out successfully");
 			})
