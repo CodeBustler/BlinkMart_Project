@@ -18,10 +18,17 @@ import { toast } from "react-toastify";
 function Navbar() {
 	const [sidebarToggle, setSidebarToggle] = useState(true);
 	const navigate = useNavigate();
+
 	const cartItems = useSelector((state) => state.cart);
 
-	const { userName, setUserName, admin, setAdmin, cartAnimate } =
-		useContext(MyContext);
+	const {
+		userName,
+		setUserName,
+		admin,
+		setAdmin,
+		cartAnimate,
+		setCartAnimate,
+	} = useContext(MyContext);
 	const toastLogout = () => toast.error("Logout !");
 
 	useEffect(() => {

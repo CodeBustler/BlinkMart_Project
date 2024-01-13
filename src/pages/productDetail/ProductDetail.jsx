@@ -197,7 +197,7 @@ function ProductDetail() {
 							</div>
 						</div>
 						<button
-							className="bg-orange-500  active:bg-orange-400 min-w-[200px] w-[100%] md:w-[40%] rounded-md py-2 mt-1 font-semibold cursor-pointer  "
+							className="bg-orange-400  active:bg-orange-300 min-w-[200px] w-[100%] md:w-[40%] rounded-md py-2 mt-1 font-semibold cursor-pointer  "
 							onClick={() => addCart(displayProduct)}
 						>
 							<GoPlus className="inline mb-1 mr-2" />

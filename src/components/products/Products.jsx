@@ -13,20 +13,15 @@ import ContainerForCard from "../Card/ContainerForCard";
 //---------------------------------------------------------------
 
 function Products() {
-	const { loading, numberWithCommas, allProducts, scrollToTop } =
+	const { loading, numberWithCommas, allProducts, scrollToTop, cartItems } =
 		useContext(MyContext);
 	const [categoryArray, setCategoryArray] = useState([]);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { mainCategory } = useParams();
-	console.log(mainCategory);
-	console.log(allProducts);
-
 	const mainCategoryFilter = allProducts.filter(
 		(item) => item.category === mainCategory,
 	);
-
-	console.log(mainCategoryFilter);
 
 	useEffect(() => {
 		scrollToTop();
@@ -52,6 +47,7 @@ function Products() {
 								key={categoryIndex}
 								item={category}
 								numberWithCommas={numberWithCommas}
+								cartItems={cartItems}
 							/>
 						</ContainerForCard>
 					))}

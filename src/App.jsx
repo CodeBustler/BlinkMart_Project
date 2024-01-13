@@ -5,6 +5,7 @@ import { auth, fireDB } from "./firebase/firebase";
 import { Timestamp } from "firebase/firestore";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const MyContext = createContext();
 
@@ -12,6 +13,7 @@ function App() {
   const [allProducts, setAllProducts] = useState([]);
   const [userName, setUserName] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [itemInCart, setItemInCart] = useState("Add To Cart");
   const [admin, setAdmin] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   const [cartAnimate, setCartAnimate] = useState(false);
@@ -107,27 +109,29 @@ function App() {
     fetchProducts();
   }, []);
 
-  console.log(allProducts);
   //---------------------------------------------------------------------
   //  Number With Commans
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
+  //---------------------------------------------------------------------
+
   const handleCartAnimate = () => {
-    setCartAnimate((prevCartAnimate) => {
-      // Toggle the value based on the previous state
-      const newCartAnimate = !prevCartAnimate;
+    // Toggle the value based on the previous state
+    setCartAnimate((prevCartAnimate) => !prevCartAnimate);
 
-      // Update the state immediately for the initial toggle
-      // and schedule the second toggle after 1000 milliseconds
-      setTimeout(() => {
-        setCartAnimate(!newCartAnimate);
-      }, 1500);
-
-      return newCartAnimate;
-    });
+    // Schedule the second toggle after 1500 milliseconds
+    setTimeout(() => {
+      setCartAnimate((prevCartAnimate) => !prevCartAnimate);
+    }, 1500);
   };
+
+  //---------------------------------------------------------------------
+
+  const cartItems = useSelector((state) => state.cart);
+  console.log(cartItems);
+  console.log(allProducts);
 
   //---------------------------------------------------------------------
 
@@ -187,7 +191,11 @@ function App() {
         numberWithCommas,
         scrollToTop,
         cartAnimate,
+        setCartAnimate,
         handleCartAnimate,
+        cartItems,
+        itemInCart,
+        setItemInCart,
       }}
     >
       <RouterProvider router={router} />

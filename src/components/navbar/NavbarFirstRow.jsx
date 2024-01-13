@@ -11,10 +11,6 @@ import { useState } from "react";
 // ---------------------------------------------------------------
 
 function NavbarFirstRow({ handleSideBar, admin, cartItems, cartAnimate }) {
-  const handleAnimateCart = () => {
-    console.log("Hello");
-  };
-
   return (
     <nav className="bg-[#131921] flex items-center justify-between px-4 py-3 gap-3  text-white ">
       <Link

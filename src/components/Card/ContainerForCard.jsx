@@ -10,7 +10,8 @@ function ContainerForCard({ categoryTitle, filterProducts, children }) {
 	const containerRef = useRef(null);
 	const navigate = useNavigate();
 	const context = useContext(MyContext);
-	const { allProducts, numberWithCommas, handleCartAnimate } = context;
+	const { allProducts, numberWithCommas, handleCartAnimate, scrollToTop } =
+		context;
 
 	// ----------------------------------------------------------------------
 	// SCROLL CONTAINER FUNCTIONS
@@ -29,6 +30,7 @@ function ContainerForCard({ categoryTitle, filterProducts, children }) {
 	const handleNavigate = (e) => {
 		console.log(e.target);
 		navigate("/");
+		scrollToTop();
 	};
 	// ----------------------------------------------------------------------
 	return (
