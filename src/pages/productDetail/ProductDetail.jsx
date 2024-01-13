@@ -25,21 +25,52 @@ function ProductDetail() {
 	const { productId } = useParams();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const context = useContext(MyContext);
-	const { allProducts, numberWithCommas, handleCartAnimate } = context;
+	const containerRef = useRef(null);
 	const [displayProduct, setDisplayProduct] = useState([]);
 	const [mainImage, setMainImage] = useState("");
 	const [reletedProducts, setRelatedProduct] = useState([]);
-
+	const [itemInCart, setLocalItemInCart] = useState("Add To Cart");
 	const toastInfo = () => toast.info("Log in to add items to your cart");
+	const context = useContext(MyContext);
+	const {
+		allProducts,
+		numberWithCommas,
+		handleCartAnimate,
+		cartItems,
+		setItemInCart,
+	} = context;
 
-	const containerRef = useRef(null);
+	useEffect(() => {
+		// Check if the item is in the cart
+		const isItemInCart = cartItems.some(
+			(cItem) => cItem.id === displayProduct.id,
+		);
 
-	const addCart = (item) => {
+		// Update local state based on the result
+		setLocalItemInCart(isItemInCart ? "In Basket" : "Add To Cart");
+	}, [cartItems, displayProduct.id]);
+
+	const addCart = () => {
 		const user = localStorage.getItem("user");
 		if (user) {
-			dispatch(addToCart(item));
-			handleCartAnimate();
+			// Check if the item is already in the cart
+			const isItemInCart = cartItems.some(
+				(cItem) => cItem.id === displayProduct.id,
+			);
+
+			if (isItemInCart) {
+				setItemInCart("In Basket");
+			} else {
+				// Use the callback form of setState
+				setLocalItemInCart("Adding");
+
+				dispatch(
+					addToCart(displayProduct, () =>
+						setLocalItemInCart("In Basket"),
+					),
+				);
+				handleCartAnimate();
+			}
 		} else {
 			navigate("/login");
 			toastInfo();
@@ -56,7 +87,7 @@ function ProductDetail() {
 		} else {
 			navigate("/");
 		}
-	}, [productId, displayProduct]);
+	}, [productId, displayProduct.id]);
 
 	const filterCategory = allProducts.filter(
 		(item) => item.category === displayProduct.category,
@@ -200,8 +231,7 @@ function ProductDetail() {
 							className="bg-orange-400  active:bg-orange-300 min-w-[200px] w-[100%] md:w-[40%] rounded-md py-2 mt-1 font-semibold cursor-pointer  "
 							onClick={() => addCart(displayProduct)}
 						>
-							<GoPlus className="inline mb-1 mr-2" />
-							Add to Cart
+							{itemInCart}
 						</button>
 					</div>
 					{/*BENEFITS*/}

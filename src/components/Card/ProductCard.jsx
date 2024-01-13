@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/cartSlice";
@@ -13,14 +13,22 @@ const ProductCard = ({ item }) => {
 		allProducts,
 		scrollToTop,
 		cartItems,
-		itemInCart,
 		setItemInCart,
 	} = useContext(MyContext);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const [itemInCart, setLocalItemInCart] = useState("Add To Cart");
 	const { handleCartAnimate } = useContext(MyContext);
 	const toastInfo = () => toast.info("Log in to add items to your cart");
 	const toastGreen = () => toast.success("Added To Cart !");
+
+	useEffect(() => {
+		// Check if the item is in the cart
+		const isItemInCart = cartItems.some((cItem) => cItem.id === item.id);
+
+		// Update local state based on the result
+		setLocalItemInCart(isItemInCart ? "In Basket" : "Add To Cart");
+	}, [cartItems, item.id]);
 
 	const addCart = () => {
 		const user = localStorage.getItem("user");
@@ -31,16 +39,14 @@ const ProductCard = ({ item }) => {
 			);
 
 			if (isItemInCart) {
-				setItemInCart("Added");
+				setItemInCart("In Basket");
 			} else {
 				// Use the callback form of setState
-				setItemInCart((prevItemInCart) =>
-					prevItemInCart === "Add To Cart"
-						? "Adding"
-						: prevItemInCart,
-				);
+				setLocalItemInCart("Adding");
 
-				dispatch(addToCart(item, () => setItemInCart("Added")));
+				dispatch(
+					addToCart(item, () => setLocalItemInCart("In Basket")),
+				);
 				handleCartAnimate();
 			}
 		} else {

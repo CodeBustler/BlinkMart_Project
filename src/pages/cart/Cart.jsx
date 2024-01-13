@@ -65,7 +65,7 @@ function Cart() {
 									return (
 										<div
 											key={item.id}
-											className="md:w-[90%] p-5 mb-7 rounded-lg flex flex-col md:flex-row gap-8 relative items-center  md:hover:translate-x-2 transition border bg-gray-100 hover:shadow-xl hover:border hover:border-2"
+											className="md:w-[90%] p-5 mb-7 rounded-lg flex flex-col md:flex-row gap-8 relative items-center transition border bg-gray-100 hover:shadow-xl hover:border"
 										>
 											<img
 												src={item.img1}
@@ -105,7 +105,7 @@ function Cart() {
 														</button>
 													</div>
 													<MdDeleteForever
-														className="text-3xl text-red-500 cursor-pointer"
+														className="text-3xl text-red-500 cursor-pointer hover:scale-150 transition"
 														onClick={() =>
 															deleteItem(item)
 														}
