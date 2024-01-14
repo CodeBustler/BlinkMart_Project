@@ -7,12 +7,13 @@
 html {
 	scroll-behavior: smooth;
 }
+
 /*ACTIVE LINK STYLE*/
 .active {
 	color: orange;
 	font-weight: 500;
 }
 
-.underline {
+.underline-heading {
 	text-decoration-color: orange;
 }

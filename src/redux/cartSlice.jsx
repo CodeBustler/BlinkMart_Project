@@ -31,9 +31,12 @@ const cartSlice = createSlice({
 			toastRed();
 			return state.filter((item) => item.id != action.payload.id);
 		},
+		emptyCart(state, action) {
+			return [];
+		},
 	},
 });
 
 // EXPORTS
-export const { addToCart, deleteFromCart } = cartSlice.actions;
+export const { addToCart, deleteFromCart, emptyCart } = cartSlice.actions;
 export default cartSlice.reducer;

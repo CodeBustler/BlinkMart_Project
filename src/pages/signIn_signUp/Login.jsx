@@ -9,6 +9,9 @@ import { auth } from "../../firebase/firebase";
 import { RiShoppingCartFill } from "react-icons/ri";
 import { IoMdSad } from "react-icons/io";
 import { toast } from "react-toastify";
+// REDUX
+import { emptyCart } from "../../redux/cartSlice";
+import { useDispatch } from "react-redux";
 
 // ---------------------------------------------------------------
 
@@ -17,6 +20,12 @@ function Login() {
 	const [errorMsg, setErrorMsg] = useState("");
 	const navigate = useNavigate();
 	const { userName, setUserName, setAdmin } = useContext(MyContext);
+
+	const dispatch = useDispatch();
+
+	const handleEmptyCart = () => {
+		dispatch(emptyCart());
+	};
 
 	// INPUT VALUES (LOGIN)
 	const [values, setValues] = useState({
@@ -138,7 +147,11 @@ function Login() {
 							Create account
 						</Link>
 					</p>
-					<Link to="/" className="text-md underline opacity-40 mt-1">
+					<Link
+						to="/"
+						onClick={handleEmptyCart}
+						className="text-md underline opacity-40 mt-1"
+					>
 						Continue as a guest
 					</Link>
 				</form>

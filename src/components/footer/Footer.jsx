@@ -20,7 +20,7 @@ function Footer() {
 			{/*FOOTER LINKS*/}
 
 			<button
-				className="w-full bg-[#131A22]  py-2 text-center flex items-center gap-2 justify-center cursor-pointer text-gray-400 select-none"
+				className="w-full bg-[#131A22]  py-2 text-center flex items-center gap-2 justify-center cursor-pointer text-gray-400 select-none "
 				onClick={scrollToTop}
 			>
 				Tap to top

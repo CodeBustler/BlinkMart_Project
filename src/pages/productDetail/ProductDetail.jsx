@@ -204,18 +204,24 @@ function ProductDetail() {
 							)}
 						</div>
 						<div className="text-gray-500">
-							<span>{displayProduct.ratingCount}</span>
+							<span>
+								{displayProduct.ratingCount
+									? numberWithCommas(
+											displayProduct.ratingCount,
+									  )
+									: ""}
+							</span>
 							&nbsp; Ratings
 						</div>
 					</div>
 					<p
-						className="text-gray-500"
+						className="text-gray-500 first-letter:capitalize"
 						title={displayProduct.description}
 					>
 						{displayProduct?.description?.slice(0, 400)}....
 					</p>
-					<div className="flex flex-col md:flex-row items-center justify-between gap-5 my-3 mt-4">
-						<div className="flex flex-wrap items-center gap-5 md:gap-2 lg:gap-5">
+					<div className="md:flex flex-col md:flex-row items-center justify-between gap-5 my-3 mt-4">
+						<div className="flex flex-wrap items-center  gap-5 md:gap-2 lg:gap-5">
 							<div className="font-bold py-3 text-2xl">
 								₹
 								{displayProduct.price
@@ -229,6 +235,7 @@ function ProductDetail() {
 								{discountPercentage}% Off
 							</div>
 						</div>
+
 						<button
 							className={`bg-orange-400 border  border-2  min-w-[200px] w-[100%] md:w-[40%] rounded-md py-2 mt-1 font-semibold cursor-pointer  ${
 								itemInCart === "In Basket"
@@ -251,8 +258,13 @@ function ProductDetail() {
 							)}
 						</button>
 					</div>
+					<div className=" text-gray-400 mt-8 md:mt-0">
+						{displayProduct.price > 500
+							? "FREE Delivery By BlinkMart"
+							: "₹20 Delivery Charges"}
+					</div>
 					{/*BENEFITS*/}
-					<div className="flex flex-wrap justify-around md:justify-between gap-4 mt-5 border-t border-gray-800 pt-10 ">
+					<div className="flex flex-wrap justify-around md:justify-between gap-4 mt-3 border-t border-gray-800 pt-7 ">
 						<div className="flex flex-col items-center gap-2  max-w-[100px] shadow-lg p-5 rounded-lg border cursor-pointer">
 							<FaArrowRotateLeft className="text-xl text-red-500" />
 							<p className="text-center text-sm text-gray-500">
@@ -262,7 +274,7 @@ function ProductDetail() {
 						<div className="flex flex-col items-center gap-2  max-w-[100px] shadow-lg p-5 rounded-lg border cursor-pointer">
 							<RiMotorbikeFill className="text-xl text-purple-500" />
 							<p className="text-center text-sm text-gray-500">
-								Free delivery
+								Fast Delivery
 							</p>
 						</div>
 						<div className="flex flex-col items-center gap-2  max-w-[100px] shadow-lg p-5 rounded-lg border cursor-pointer">

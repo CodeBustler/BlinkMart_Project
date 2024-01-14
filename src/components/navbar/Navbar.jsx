@@ -30,6 +30,7 @@ function Navbar() {
 		setCartAnimate,
 	} = useContext(MyContext);
 	const toastLogout = () => toast.error("Logout !");
+	const toastLogin = () => toast.info("Log in to add items to your cart");
 
 	useEffect(() => {
 		const userDetail = JSON.parse(localStorage.getItem("user"));
@@ -61,13 +62,14 @@ function Navbar() {
 	// ---------------------------------------------------------------
 
 	return (
-		<header className="flex flex-col sticky top-0 z-10">
+		<header className="flex flex-col sticky top-0 z-20">
 			{/* FIRST ROW */}
 			<NavbarFirstRow
 				handleSideBar={handleSideBar}
 				admin={admin}
 				cartItems={cartItems}
 				cartAnimate={cartAnimate}
+				toastLogin={toastLogin}
 			/>
 
 			{/* SECOND ROW */}

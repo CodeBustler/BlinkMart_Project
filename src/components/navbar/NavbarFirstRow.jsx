@@ -10,17 +10,25 @@ import { useState } from "react";
 
 // ---------------------------------------------------------------
 
-function NavbarFirstRow({ handleSideBar, admin, cartItems, cartAnimate }) {
+function NavbarFirstRow({
+  handleSideBar,
+  admin,
+  cartItems,
+  cartAnimate,
+  toastLogin,
+}) {
+  const user = localStorage.getItem("user");
+
   return (
     <nav className="bg-[#131921] flex items-center justify-between px-4 py-3 gap-3  text-white ">
-      <Link
+      <div
         className="font-semibold text-sm flex gap-2 md:hidden"
         onClick={() => {
           handleSideBar();
         }}
       >
         <RxHamburgerMenu className="text-2xl cursor-pointer" />
-      </Link>
+      </div>
       {/* LOGO */}
       <Link to="/" className="font-bold text-2xl flex items-center gap-1  ">
         <RiShoppingCartFill className="text-3xl text-orange-400" />
@@ -56,7 +64,11 @@ function NavbarFirstRow({ handleSideBar, admin, cartItems, cartAnimate }) {
         )}
 
         {/* Cart Icon */}
-        <NavLink className="flex items-center gap-1" to="/cart">
+        <NavLink
+          className="flex items-center gap-1"
+          to="/cart"
+          onClick={!user && toastLogin}
+        >
           <LuShoppingCart
             className={`text-3xl cursor-pointer  ${
               cartAnimate ? "animate-bounce" : ""

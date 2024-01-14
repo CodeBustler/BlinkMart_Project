@@ -1,56 +1,72 @@
 import { useContext, useEffect, useState } from "react";
 import { MyContext } from "../../App";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteFromCart } from "../../redux/cartSlice";
-import { Link, useNavigate } from "react-router-dom";
+// ICONS
 import { toast } from "react-toastify";
 import { MdDeleteForever } from "react-icons/md";
 import { FaBagShopping, FaMinus, FaPlus } from "react-icons/fa6";
 import emptyCart from "../../assets/empty_cart.jpg";
+// REDUX
+import { useDispatch, useSelector } from "react-redux";
+import { deleteFromCart } from "../../redux/cartSlice";
+// ROUTER
+import { Link, useNavigate } from "react-router-dom";
+
+//-------------------------------------------------------------
 
 function Cart() {
+	const { userName, admin, numberWithCommas, setCartAnimate, scrollToTop } =
+		useContext(MyContext);
 	const cartItems = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { userName, admin, numberWithCommas, setCartAnimate, scrollToTop } =
-		useContext(MyContext);
-
-	useEffect(() => {
-		scrollToTop();
-	}, []);
-
-	// Product counts state
+	// PRICING
+	const [shippingCharge, setShippingCharge] = useState(0);
+	const [specialOff, setSpecialOff] = useState(100);
+	const [totalAmount, setTotalAmout] = useState(0);
+	const [scrollY, setScrollY] = useState(0);
 	const [productCounts, setProductCounts] = useState(
 		cartItems.map(() => 1), // Initialize counts for each item to 1
 	);
 
+	//------------------------------------------
+
+	useEffect(() => {
+		scrollToTop();
+
+		// Function to handle scroll event
+		const handleScroll = () => {
+			setScrollY(window.scrollY);
+		};
+
+		// Attach event listener when the component mounts
+		window.addEventListener("scroll", handleScroll);
+
+		// Detach event listener when the component unmounts
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
+
+	// PRODUCT ITEMS COUNT
 	const totalItems = productCounts.reduce(
 		(total, element) => total + element,
 		0,
 	);
+
 	// SUBTOTAL PRICE
-	const cartProductsPrice = cartItems.reduce(
+	const subTotalPrice = cartItems.reduce(
 		(total, item, index) =>
 			total + parseInt(item.price) * productCounts[index],
 		0,
 	);
 
 	// TOTAL PRICE
-	const totalAmount = cartProductsPrice + 20 + 100;
-
-	// DELETE ITEM FROM CART
-	const deleteItem = (item, index) => {
-		toastRed();
-		dispatch(deleteFromCart(item));
-		// Remove the count for the deleted item
-		setProductCounts((prevCounts) =>
-			prevCounts.filter((_, i) => i !== index),
-		);
-	};
-
-	function toastRed() {
-		toast.dismiss("Item Removed! ");
-	}
+	useEffect(() => {
+		// Calculate shipping charge based on totalAmount
+		const shippingCharge = totalAmount > 500 ? 0 : 20;
+		setShippingCharge(shippingCharge);
+		setTotalAmout(subTotalPrice + shippingCharge - specialOff);
+	}, [totalAmount, subTotalPrice]);
 
 	// HANDLE PRODUCT COUNTER
 	const handleProductCountMinus = (index) => {
@@ -66,6 +82,24 @@ function Cart() {
 			prevCounts.map((count, i) => (i === index ? count + 1 : count)),
 		);
 	};
+
+	// DELETE ITEM FROM CART
+	const deleteItem = (item, index) => {
+		dispatch(deleteFromCart(item));
+		// Remove the count for the deleted item
+		setProductCounts((prevCounts) =>
+			prevCounts.filter((_, i) => i !== index),
+		);
+		toastRed();
+		scrollToTop();
+	};
+
+	// TOAST
+	function toastRed() {
+		toast.dismiss("Item Removed! ");
+	}
+
+	//-------------------------------------------------------------
 
 	return (
 		<>
@@ -90,9 +124,20 @@ function Cart() {
 				</div>
 			) : (
 				<>
-					<h1 className="text-2xl font-bold  text-center md:text-left mb-5 underline underline-offset-8">
+					<h1 className="text-2xl font-bold  text-center md:text-left mb-5 underline underline-heading underline-offset-4">
 						Cart Items
 					</h1>
+					<div
+						className={`md:hidden text-xl text-center py-2 bg-yellow-400 rounded-lg sticky top-[60px] z-10 shadow-xl cursor-pointer ${
+							scrollY > 100 ? "block" : "hidden"
+						}`}
+						onClick={scrollToTop}
+					>
+						Total Amount :{" "}
+						<span className="font-semibold">
+							₹ {totalAmount ? numberWithCommas(totalAmount) : ""}{" "}
+						</span>
+					</div>
 					<section className="">
 						<div className="flex flex-col-reverse  md:flex-row items-center md:items-start justify-center p-1 md:p-5 ">
 							<div className="w-full md:w-2/3 ">
@@ -124,7 +169,7 @@ function Cart() {
 														" ",
 													)}
 												</small>
-												<p className="mt-3 text-gray-500">
+												<p className="mt-3 text-gray-500 first-letter:capitalize">
 													{item.description.slice(
 														0,
 														200,
@@ -172,7 +217,7 @@ function Cart() {
 													/>
 												</div>
 												<MdDeleteForever
-													className="text-4xl text-red-500 cursor-pointer hover:scale-150 transition"
+													className="text-4xl text-red-500 cursor-pointer hover:scale-125 transition"
 													onClick={() =>
 														deleteItem(item, index)
 													}
@@ -191,19 +236,19 @@ function Cart() {
 									</div>
 									<div>
 										₹{" "}
-										{cartProductsPrice
-											? numberWithCommas(
-													cartProductsPrice,
-											  )
+										{subTotalPrice
+											? numberWithCommas(subTotalPrice)
 											: ""}
 									</div>
 								</div>
 								<div className="flex justify-between mt-3">
 									<div>Shipping</div>
-									<div>₹ 20</div>
+									<div>
+										{totalAmount > 500 ? "Free" : "₹ 20"}
+									</div>
 								</div>
 								<div className="flex justify-between mt-3">
-									<div>5% Discount </div>
+									<div>Special ₹100 Off </div>
 									<div>₹ 100</div>
 								</div>
 								<div className="mt-5 text-xl md:text-2xl font-bold flex justify-between">
