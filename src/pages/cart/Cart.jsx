@@ -194,7 +194,12 @@ function Cart() {
 													</small>
 												</div>
 											</div>
-											<div className="flex items-center justify-between mt-7">
+											<div className=" text-gray-400 mt-2 ">
+												{item.price > 500
+													? "FREE Delivery By BlinkMart"
+													: "₹20 Delivery Charges | ₹500 <"}
+											</div>
+											<div className="flex items-center justify-between mt-5">
 												<div className=" flex items-center justify-center  shadow-xl rounded-lg text-lg bg-orange-400">
 													<FaMinus
 														className=" cursor-pointer w-[35px] px-2"
@@ -242,7 +247,7 @@ function Cart() {
 									</div>
 								</div>
 								<div className="flex justify-between mt-3">
-									<div>Shipping</div>
+									<div>Delivery Charge</div>
 									<div>
 										{totalAmount > 500 ? "Free" : "₹ 20"}
 									</div>
