@@ -104,7 +104,7 @@ function App() {
     setLoading(false);
     setAllProducts(productData);
   };
-
+  console.log(allProducts);
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -114,7 +114,6 @@ function App() {
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
-
   //---------------------------------------------------------------------
 
   const handleCartAnimate = () => {
@@ -130,8 +129,6 @@ function App() {
   //---------------------------------------------------------------------
 
   const cartItems = useSelector((state) => state.cart);
-  console.log(cartItems);
-  console.log(allProducts);
 
   //---------------------------------------------------------------------
 

@@ -16,8 +16,13 @@ function NavbarFirstRow({
   cartItems,
   cartAnimate,
   toastLogin,
+  scrollToTop,
 }) {
-  const user = localStorage.getItem("user");
+  function handleCartIcon() {
+    const user = localStorage.getItem("user");
+    !user && toastLogin();
+    scrollToTop();
+  }
 
   return (
     <nav className="bg-[#131921] flex items-center justify-between px-4 py-3 gap-3  text-white ">
@@ -30,7 +35,11 @@ function NavbarFirstRow({
         <RxHamburgerMenu className="text-2xl cursor-pointer" />
       </div>
       {/* LOGO */}
-      <Link to="/" className="font-bold text-2xl flex items-center gap-1  ">
+      <Link
+        to="/"
+        className="font-bold text-2xl flex items-center gap-1 "
+        onClick={scrollToTop}
+      >
         <RiShoppingCartFill className="text-3xl text-orange-400" />
         <span className="hidden md:flex">BlinkMart</span>
       </Link>
@@ -67,7 +76,7 @@ function NavbarFirstRow({
         <NavLink
           className="flex items-center gap-1"
           to="/cart"
-          onClick={!user && toastLogin}
+          onClick={handleCartIcon}
         >
           <LuShoppingCart
             className={`text-3xl cursor-pointer  ${

@@ -14,9 +14,11 @@ import { Link, useNavigate } from "react-router-dom";
 //-------------------------------------------------------------
 
 function Cart() {
-	const { userName, admin, numberWithCommas, setCartAnimate, scrollToTop } =
-		useContext(MyContext);
+	const { numberWithCommas, scrollToTop } = useContext(MyContext);
 	const cartItems = useSelector((state) => state.cart);
+	const [userCart, setUserCart] = useState([]);
+	console.log(userCart);
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	// PRICING
@@ -31,21 +33,19 @@ function Cart() {
 	//------------------------------------------
 
 	useEffect(() => {
-		scrollToTop();
-
-		// Function to handle scroll event
-		const handleScroll = () => {
-			setScrollY(window.scrollY);
-		};
-
-		// Attach event listener when the component mounts
+		// DISPLAY TOTAL AMOUNT (MOBILE)
+		const handleScroll = () => setScrollY(window.scrollY);
 		window.addEventListener("scroll", handleScroll);
-
-		// Detach event listener when the component unmounts
 		return () => {
 			window.removeEventListener("scroll", handleScroll);
 		};
+		// SCROLL TOP
+		scrollToTop();
 	}, []);
+
+	useEffect(() => {
+		setUserCart(cartItems);
+	}, [cartItems]);
 
 	// PRODUCT ITEMS COUNT
 	const totalItems = productCounts.reduce(

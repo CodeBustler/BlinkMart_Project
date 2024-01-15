@@ -23,6 +23,10 @@ function Products() {
 		(item) => item.category === mainCategory,
 	);
 
+	useEffect(() => {
+		scrollToTop();
+	}, [mainCategory]);
+
 	//---------------------------------------------------------------
 
 	return (
