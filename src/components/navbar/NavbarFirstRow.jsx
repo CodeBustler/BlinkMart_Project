@@ -16,6 +16,7 @@ function NavbarFirstRow({
   cartItems,
   cartAnimate,
   toastLogin,
+  scrollToTop,
 }) {
   const user = localStorage.getItem("user");
 
@@ -30,7 +31,11 @@ function NavbarFirstRow({
         <RxHamburgerMenu className="text-2xl cursor-pointer" />
       </div>
       {/* LOGO */}
-      <Link to="/" className="font-bold text-2xl flex items-center gap-1  ">
+      <Link
+        to="/"
+        className="font-bold text-2xl flex items-center gap-1 "
+        onClick={scrollToTop}
+      >
         <RiShoppingCartFill className="text-3xl text-orange-400" />
         <span className="hidden md:flex">BlinkMart</span>
       </Link>
@@ -67,7 +72,7 @@ function NavbarFirstRow({
         <NavLink
           className="flex items-center gap-1"
           to="/cart"
-          onClick={!user && toastLogin}
+          onClick={(!user && toastLogin, scrollToTop)}
         >
           <LuShoppingCart
             className={`text-3xl cursor-pointer  ${

@@ -28,6 +28,7 @@ function Navbar() {
 		setAdmin,
 		cartAnimate,
 		setCartAnimate,
+		scrollToTop,
 	} = useContext(MyContext);
 	const toastLogout = () => toast.error("Logout !");
 	const toastLogin = () => toast.info("Log in to add items to your cart");
@@ -70,6 +71,7 @@ function Navbar() {
 				cartItems={cartItems}
 				cartAnimate={cartAnimate}
 				toastLogin={toastLogin}
+				scrollToTop={scrollToTop}
 			/>
 
 			{/* SECOND ROW */}
