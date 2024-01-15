@@ -76,7 +76,11 @@ function NavbarFirstRow({
         <NavLink
           className="flex items-center gap-1"
           to="/cart"
+<<<<<<< HEAD
           onClick={handleCartIcon}
+=======
+          onClick={(!user && toastLogin, scrollToTop)}
+>>>>>>> ed0a99b0d2fa8b4e7e0822f90bebc2763d26ebb7
         >
           <LuShoppingCart
             className={`text-3xl cursor-pointer  ${
